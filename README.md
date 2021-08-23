@@ -6,17 +6,17 @@ Trabalho de Disciplina - Microservices &amp; Serveless Architecture
 Microserviço responsável pela orquestração da conta do cliente, com serviço de saldo, cartão de crédito e investimentos.
 
 ## Dependências utilizadas
-- [Quarkus](https://code.quarkus.io/) com extensões:
---    YAML Configuration
---    RESTEasy JAX-RS
---    RESTEasy Jackson
---    SmallRye OpenAPI
---    Hibernate ORM with Panache
---    JDBC Driver - PostgreSQL
---    SmallRye Fault Tolerance
---    SmallRye OpenTracing
---    OpenID Connect
---    Keycloak Authorization
+ [Quarkus](https://code.quarkus.io/) com extensões:
+-    YAML Configuration
+-    RESTEasy JAX-RS
+-    RESTEasy Jackson
+-   SmallRye OpenAPI
+-    Hibernate ORM with Panache
+-    JDBC Driver - PostgreSQL
+-    SmallRye Fault Tolerance
+-    SmallRye OpenTracing
+-    OpenID Connect
+-    Keycloak Authorization
 
 
 # Ambientes

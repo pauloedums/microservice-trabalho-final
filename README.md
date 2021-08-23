@@ -7,16 +7,16 @@ Microserviço responsável pela orquestração da conta do cliente, com serviço
 
 ## Dependências utilizadas
 - [Quarkus] (https://code.quarkus.io/) com extensões:
-    YAML Configuration
-    RESTEasy JAX-RS
-    RESTEasy Jackson
-    SmallRye OpenAPI
-    Hibernate ORM with Panache
-    JDBC Driver - PostgreSQL
-    SmallRye Fault Tolerance
-    SmallRye OpenTracing
-    OpenID Connect
-    Keycloak Authorization
+-    YAML Configuration
+-    RESTEasy JAX-RS
+-    RESTEasy Jackson
+-    SmallRye OpenAPI
+-    Hibernate ORM with Panache
+-    JDBC Driver - PostgreSQL
+-    SmallRye Fault Tolerance
+-    SmallRye OpenTracing
+-    OpenID Connect
+-    Keycloak Authorization
 
 
 # Ambientes
@@ -34,15 +34,17 @@ docker run -d -p 10520:9091 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin jb
 
 ## Adicionando as tabelas no BD Postgres
 
-Copie o arquivo `schemas.sql` para o container do postgres usando o comando `docker cp ./schemas.sql postgres-db:/docker-entrypoint-initdb.d/schemas.sql`.
+Copie o arquivo `schemas.sql` para o container do postgres usando o comando abaixo.
+```docker cp ./schemas.sql postgres-db:/docker-entrypoint-initdb.d/schemas.sql```
 
-Depois execute o comando para criar o banco de dados e as tabelas `docker exec -i postgres-db /bin/sh -c 'psql -U postgres -a -f docker-entrypoint-initdb.d/schemas.sql`.
+Depois execute o comando para criar o banco de dados e as tabelas.
+```docker exec -i postgres-db /bin/sh -c 'psql -U postgres -a -f docker-entrypoint-initdb.d/schemas.sql```
 
 
 ## Keycloak para autenticação e acesso ao sistema bancário
 
 
-Acessar o [Auth](http://localhost:10520/auth/) clicar em `Administration Console` e utilizar o usuário e senha `admin` e adicionar a configuração disponível no arquivo quarkus-realm.json na aba Quarkus > add realm fazer o upload do arquivo.
+Acessar o [Auth](http://localhost:10520/auth/) clicar em `Administration Console` e utilizar o usuário e senha `admin` e adicionar a configuração disponível no arquivo quarkus-realm.json na aba Quarkus > Add Realm fazendo o upload do arquivo.
 
 Para testar o token adicionando usuário 'alice' com senha 'alice':
 

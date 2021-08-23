@@ -6,7 +6,7 @@ Trabalho de Disciplina - Microservices &amp; Serveless Architecture
 Microserviço responsável pela orquestração da conta do cliente, com serviço de saldo, cartão de crédito e investimentos.
 
 ## Dependências utilizadas
-- [Quarkus] (https://code.quarkus.io/) com extensões:
+- [Quarkus](https://code.quarkus.io/) com extensões:
 -    YAML Configuration
 -    RESTEasy JAX-RS
 -    RESTEasy Jackson
@@ -21,10 +21,10 @@ Microserviço responsável pela orquestração da conta do cliente, com serviço
 
 # Ambientes
 
-É necessário subir um servidor de autenticação local na máquina para utilizar requisições usando JWT como recurso de segurança.
+É necessário subir um servidor de autenticação local na máquina para utilizar requisições usando JWT como recurso de segurança. Como opção foi selecionado o Banco de Dados PostGresSQL.
 
-Docker Image Keycloak: [Jboss/Keycloak] (https://hub.docker.com/r/jboss/keycloak)
-Docker Postgres: [Postgres] (https://hub.docker.com/_/postgres)
+- Docker Image Keycloak: [Jboss/Keycloak](https://hub.docker.com/r/jboss/keycloak)
+- Docker Postgres: [Postgres](https://hub.docker.com/_/postgres)
 
 Rodar os containers: 
 ```
@@ -35,10 +35,14 @@ docker run -d -p 10520:9091 -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin jb
 ## Adicionando as tabelas no BD Postgres
 
 Copie o arquivo `schemas.sql` para o container do postgres usando o comando abaixo.
-```docker cp ./schemas.sql postgres-db:/docker-entrypoint-initdb.d/schemas.sql```
+```
+docker cp ./schemas.sql postgres-db:/docker-entrypoint-initdb.d/schemas.sql
+```
 
 Depois execute o comando para criar o banco de dados e as tabelas.
-```docker exec -i postgres-db /bin/sh -c 'psql -U postgres -a -f docker-entrypoint-initdb.d/schemas.sql```
+```
+docker exec -i postgres-db /bin/sh -c 'psql -U postgres -a -f docker-entrypoint-initdb.d/schemas.sql
+```
 
 
 ## Keycloak para autenticação e acesso ao sistema bancário

@@ -1,0 +1,66 @@
+quarkus:
+  http:
+    port: 9091
+    cors:
+      ~: true
+      methods: GET,PUT,POST,DELETE
+
+  swagger-ui:
+    always-include: true
+
+  datasource:
+    db-kind: postgresql
+
+# dev profile
+"%dev":
+  quarkus:
+    datasource:
+      username: postgres
+      password: postgres
+      jdbc:
+        url: jdbc:postgresql://localhost:5432/clients
+    hibernate-orm:
+      database:
+        generation: drop-and-create
+  oidc:
+    auth-server-url: http://localhost:10520/auth/realms/Quarkus
+    client-id: backend-service
+    credentials:
+      secret: secret
+    http: 
+      auth:
+        policy:
+          role-policy1:
+            roles-allowed: user,admin                      
+        permission:
+          roles1:
+            paths: /*
+            policy: role-policy1
+
+
+# Fault Tolerance Test
+  isTestingFault: false
+# Retry
+  isRetry: false
+# Timeout
+  isFallBack: false
+
+
+br:
+  com:
+    impacta:
+      quarkus:
+        Balance/mp-rest/url: http://localhost:9000/balance
+        Balance/mp-rest/scope: javax.inject.Singleton
+        Debt/mp-rest/url: http://localhost:9010/debt
+        Debt/mp-rest/scope: javax.inject.Singleton
+        Credit/mp-rest/url: http://localhost:9020/credit
+        Credit/mp-rest/scope: javax.inject.Singleton
+        Investments/mp-rest/url: http://localhost:8500/investments
+        Investments/mp-rest/scope: javax.inject.Singleton
+        CreditCard/mp-rest/url: http://localhost:8200/credit-card
+        CreditCard/mp-rest/scope: javax.inject.Singleton
+
+# variables
+app:
+  token-url: http://localhost:10520/auth/realms/quarkus/protocol/openid-connect/token

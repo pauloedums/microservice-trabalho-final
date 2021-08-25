@@ -1,10 +1,4 @@
 quarkus:
-  http:
-    port: 9091
-    cors:
-      ~: true
-      methods: GET,PUT,POST,DELETE
-
   swagger-ui:
     always-include: true
 
@@ -18,41 +12,26 @@ quarkus:
 "%dev":
   quarkus:
     datasource:
+      db-kind: postgresql
       username: postgres
       password: postgres
       jdbc:
-        url: jdbc:postgresql://localhost:5432/clients
+        url: jdbc:postgresql://localhost:5432/bank_accounts
     hibernate-orm:
       database:
         generation: drop-and-create
     oidc:
       auth-server-url: http://localhost:10520/auth/realms/Quarkus
-      client-id: backend-service
+      client-id: customer-app
       credentials:
-        secret: secret
-      discovery-enabled: false
-      token-path: /protocol/openid-connect/token
-      jwks-path: /protocol/openid-connect/certs
-      user-info-path: /protocol/openid-connect/userinfo
-      introspection-path: /protocol/openid-connect/tokens/introspect
-    http: 
-      auth:
-        policy:
-          role-policy1:
-            roles-allowed: user,admin                      
-        permission:
-          roles1:
-            paths: /*
-            policy: role-policy1
-
-
+        secret: 5ffb3490-4d7b-42ed-8cac-e6774550bc92
+                     
 # Fault Tolerance Test
   isTestingFault: false
 # Retry
   isRetry: false
 # Timeout
   isFallBack: false
-
 
 br:
   com:

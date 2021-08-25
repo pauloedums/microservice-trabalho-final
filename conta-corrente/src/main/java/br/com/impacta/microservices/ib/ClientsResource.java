@@ -1,22 +1,30 @@
 package br.com.impacta.microservices.ib;
 
 import javax.annotation.security.RolesAllowed;
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
+import javax.resource.spi.SecurityPermission;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.jboss.resteasy.annotations.cache.NoCache;
+import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType;
+import org.eclipse.microprofile.openapi.annotations.security.OAuthFlow;
+import org.eclipse.microprofile.openapi.annotations.security.OAuthFlows;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme;
 
 import io.quarkus.security.identity.SecurityIdentity;
 
 @Path("/api/clients")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
-@ApplicationScoped
+@SecurityScheme(
+    securitySchemeName = "quarkus",
+    type = SecuritySchemeType.OAUTH2,
+    flows = @OAuthFlows(
+        password = @OAuthFlow(
+            tokenUrl = "http://localhost:10520/auth/realms/Quarkus/protocol/openid-connect/token"
+        )
+    )
+)
 public class ClientsResource {
 
     @Inject
@@ -24,22 +32,9 @@ public class ClientsResource {
 
     @GET
     @Path("/me")
+    @Produces(MediaType.TEXT_PLAIN)
     @RolesAllowed("user")
-    @NoCache
-    public Client me() {
-        return new Client(securityIdentity);
-    }
-
-    public static class Client {
-
-        private final String userName;
-
-        Client(SecurityIdentity securityIdentity) {
-            this.userName = securityIdentity.getPrincipal().getName();
-        }
-
-        public String getClientName() {
-            return userName;
-        }
+    public String me() {
+        return "You are authenticated!";
     }
 }

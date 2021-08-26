@@ -2,9 +2,10 @@ package br.com.impacta.microservices.ib;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
-import javax.resource.spi.SecurityPermission;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -12,10 +13,13 @@ import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType;
 import org.eclipse.microprofile.openapi.annotations.security.OAuthFlow;
 import org.eclipse.microprofile.openapi.annotations.security.OAuthFlows;
 import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
-import io.quarkus.security.identity.SecurityIdentity;
+import br.com.impacta.microservices.ib.model.Client;
+import br.com.impacta.microservices.ib.services.ClientService;
 
-@Path("/api/clients")
+@Path("/client")
+@Tag(name="Cliente", description="Acesso a conta, aderir a investimentos e pagar cartão de crédito.")
 @SecurityScheme(
     securitySchemeName = "quarkus",
     type = SecuritySchemeType.OAUTH2,
@@ -28,13 +32,17 @@ import io.quarkus.security.identity.SecurityIdentity;
 public class ClientsResource {
 
     @Inject
-    SecurityIdentity securityIdentity;
-
+    ClientService clientService;
+    
     @GET
-    @Path("/me")
-    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/{cpf}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed("user")
-    public String me() {
-        return "You are authenticated!";
+    public Client me(@PathParam("cpf") Integer cpf) {
+        Client clientEntity = new Client();
+        clientEntity.setCpf(cpf);
+        clientEntity = clientService.getClientByCpf(clientEntity);
+        return clientEntity;
     }
 }

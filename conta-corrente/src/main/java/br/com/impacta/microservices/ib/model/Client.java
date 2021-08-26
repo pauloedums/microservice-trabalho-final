@@ -22,10 +22,19 @@ public class Client extends PanacheEntityBase  {
 
     @Column(name="first_name")
     private String firstName;
-    @Column(name="account_number")
-    private Integer accountNumber;
+    
     @Column(name="last_name")
     private String lastName;
+    
+    @Column(name="account_number")
+    private Integer accountNumber;
+
+    @Column(name="cpf")
+    private Integer cpf;
+
+    @Column(name="balance")
+    private Integer balance;
+
 
     public String getFirstName() {
         return firstName;
@@ -46,8 +55,26 @@ public class Client extends PanacheEntityBase  {
         this.lastName = lastName;
     }
 
+    public Integer getBalance() {
+        return balance;
+    }
+    public void setBalance(Integer balance) {
+        this.balance = balance;
+    }
+
+    public Integer getCpf() {
+        return cpf;
+    }
+    public void setCpf(Integer cpf) {
+        this.cpf = cpf;
+    }
     public static Client findByAccount(Client client){
         client = Client.find("accountNumber", client.getAccountNumber()).firstResult();
+        return client;
+    }
+
+    public static Client findByCpf(Client client){
+        client = Client.find("cpf", client.getCpf()).firstResult();
         return client;
     }
 

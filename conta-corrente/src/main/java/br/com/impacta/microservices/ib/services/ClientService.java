@@ -51,4 +51,10 @@ public class ClientService {
         client = Client.findByAccount(client);
         return client;
     }
+
+    @Transactional
+    public Client getClientByCpf(Client client){
+        client = Client.findByCpf(client);
+        return client;
+    }
 }

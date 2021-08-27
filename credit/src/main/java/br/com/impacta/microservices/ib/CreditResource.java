@@ -1,16 +1,17 @@
 package br.com.impacta.microservices.ib;
 
-import java.math.BigDecimal;
+import java.net.URI;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import br.com.impacta.microservices.ib.model.Credit;
 import br.com.impacta.microservices.ib.services.CreditService;
@@ -24,19 +25,22 @@ public class CreditResource {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Credit> getAllCredits(){
-        return creditService.listCredit();
+    public Response getAllCredits(){
+        List<Credit> credits = creditService.listCredit();
+        return Response.ok(credits).build();
     }
 
     @POST
-    @Path("/{value}")
+    @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Credit addDebit(@PathParam("value") BigDecimal credit){
-        Credit creditEntity = new Credit();
-        creditEntity.setCredit(credit);
-        creditService.addCredit(creditEntity);
-        return creditEntity;
+    public Response addCredit(Credit credit){
+        creditService.addCredit(credit);
+        if(credit.isPersistent()){
+            return Response.created(URI.create("/credit" + credit.id)).build();
+        }
+        
+        return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
 }

@@ -1,0 +1,50 @@
+package br.com.impacta.microservices.ib.services;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.transaction.Transactional;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+
+import br.com.impacta.microservices.ib.interfaces.CreditRestClient;
+import br.com.impacta.microservices.ib.interfaces.DebtRestClient;
+import br.com.impacta.microservices.ib.model.Credit;
+import br.com.impacta.microservices.ib.model.Debit;
+import br.com.impacta.microservices.ib.model.Extract;
+
+@ApplicationScoped
+public class ExtractService {
+    
+    @Inject
+    @RestClient
+    DebtRestClient debtRestClient;
+
+    @Inject
+    @RestClient
+    CreditRestClient creditRestClient;
+
+    public Extract getExtract(){
+        //Get Credito
+        List<Credit> creditList = creditRestClient.getAll();
+        Extract extrato = new Extract();
+        extrato.setCreditList(creditList);
+        BigDecimal creditSum = creditList.stream().map(Credit::getCredit).reduce(BigDecimal.ZERO, BigDecimal::add);
+        //Get Debito
+        List<Debit> debitList = debtRestClient.getAll();
+        extrato.setDebitList(debitList);
+        BigDecimal debitSum = debitList.stream().map(Debit::getDebit).reduce(BigDecimal.ZERO, BigDecimal::add);
+        //Calcular saldo
+        BigDecimal balance = creditSum.add(debitSum);
+        extrato.setBalance(balance);
+        return extrato;
+    }
+}

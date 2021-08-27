@@ -4,6 +4,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -34,15 +35,14 @@ public class ClientsResource {
     @Inject
     ClientService clientService;
     
-    @GET
+    @POST
     @Path("/{cpf}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     @RolesAllowed("user")
-    public Client me(@PathParam("cpf") Integer cpf) {
+    public String me(@PathParam("cpf") Integer cpf) {
         Client clientEntity = new Client();
         clientEntity.setCpf(cpf);
         clientEntity = clientService.getClientByCpf(clientEntity);
-        return clientEntity;
+        return clientEntity.getFirstName().toString() + ", seja bem-vindo ao Banco X.";
     }
 }

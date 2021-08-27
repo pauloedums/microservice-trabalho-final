@@ -1,28 +1,22 @@
 package br.com.impacta.microservices.ib.services;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import br.com.impacta.microservices.ib.interfaces.CreditRestClient;
 import br.com.impacta.microservices.ib.interfaces.DebtRestClient;
+import br.com.impacta.microservices.ib.model.Balance;
 import br.com.impacta.microservices.ib.model.Credit;
 import br.com.impacta.microservices.ib.model.Debit;
 import br.com.impacta.microservices.ib.model.Extract;
 
 @ApplicationScoped
-public class ExtractService {
+public class ExtractBalanceService {
     
     @Inject
     @RestClient
@@ -31,6 +25,8 @@ public class ExtractService {
     @Inject
     @RestClient
     CreditRestClient creditRestClient;
+
+    public BigDecimal balance;
 
     public Extract getExtract(){
         //Get Credito
@@ -46,5 +42,11 @@ public class ExtractService {
         BigDecimal balance = creditSum.add(debitSum);
         extrato.setBalance(balance);
         return extrato;
+    }
+
+    public Balance getBalance(){
+        Balance balance = new Balance();
+        balance.setBalance(getExtract().getBalance());
+        return balance;
     }
 }

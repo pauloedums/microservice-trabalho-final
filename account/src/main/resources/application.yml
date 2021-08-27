@@ -40,16 +40,12 @@ br:
       microservices:
         ib:
           interfaces:  
-            BalanceRestClient/mp-rest/url: http://localhost:9000/balance
+            BalanceRestClient/mp-rest/url: http://localhost:9000
             BalanceRestClient/mp-rest/scope: javax.inject.Singleton
-          Debt/mp-rest/url: http://localhost:9010/debt
-          Debt/mp-rest/scope: javax.inject.Singleton
-          Credit/mp-rest/url: http://localhost:9020/credit
-          Credit/mp-rest/scope: javax.inject.Singleton
-          Investments/mp-rest/url: http://localhost:8500/investments
-          Investments/mp-rest/scope: javax.inject.Singleton
-          CreditCard/mp-rest/url: http://localhost:8200/credit-card
-          CreditCard/mp-rest/scope: javax.inject.Singleton
+            InvestmentsRestClient/mp-rest/url: http://localhost:8500
+            InvestmentsRestClient/mp-rest/scope: javax.inject.Singleton
+            CreditCardRestClient/mp-rest/url: http://localhost:8200
+            CreditCardRestClient/mp-rest/scope: javax.inject.Singleton
 
 # variables
 app:

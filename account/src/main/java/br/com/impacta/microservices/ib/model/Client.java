@@ -33,7 +33,7 @@ public class Client extends PanacheEntityBase  {
     private Integer cpf;
 
     @Column(name="balance")
-    private Integer balance;
+    private Balance balance;
 
 
     public String getFirstName() {

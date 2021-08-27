@@ -1,14 +1,16 @@
 package br.com.impacta.microservices.ib.model;
 
+import java.math.BigDecimal;
+
 public class Balance {
     
-    private Integer balance;
+    private BigDecimal balance;
 
-    public Integer getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(Integer balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
     

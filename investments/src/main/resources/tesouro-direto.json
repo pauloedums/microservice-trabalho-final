@@ -1,0 +1,298 @@
+[
+   {
+         "cd":159,
+         "nm":"Tesouro Selic 2023",
+         "featrs":"Título com rentabilidade diária vinculada à taxa de juros da economia (taxa Selic). Isso significa que se a taxa Selic aumentar a sua rentabilidade aumenta e se a taxa Selic diminuir, sua rentabilidade diminui.",
+         "mtrtyDt":"2023-03-01T00:00:00",
+         "minInvstmtAmt":0.0,
+         "untrInvstmtVal":0.0,
+         "invstmtStbl":"Esse investimento garante que, mesmo em caso de resgate antecipado, o montante do dinheiro resgatado será superior ao inicialmente investido.  Como não paga juros semestrais, é mais interessante para quem pode deixar o dinheiro render até o vencimento do investimento.",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de curto prazo."
+      
+   },
+   {
+         "cd":171,
+         "nm":"Tesouro Selic 2024",
+         "featrs":"Título com rentabilidade diária vinculada à taxa de juros da economia (taxa Selic). Isso significa que se a taxa Selic aumentar a sua rentabilidade aumenta e se a taxa Selic diminuir, sua rentabilidade diminui.\r\n",
+         "mtrtyDt":"2024-09-01T00:00:00",
+         "minInvstmtAmt":109.21,
+         "untrInvstmtVal":10921.06,
+         "invstmtStbl":"Como não paga juros semestrais, é mais interessante para quem pode deixar o dinheiro render até o vencimento do investimento\r\n",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de curto prazo\r\n"
+      
+   },
+   {
+         "cd":164,
+         "nm":"Tesouro Selic 2025",
+         "featrs":"Título com rentabilidade diária vinculada à taxa de juros da economia (taxa Selic). Isso significa que se a taxa Selic aumentar a sua rentabilidade aumenta e se a taxa Selic diminuir, sua rentabilidade diminui.",
+         "mtrtyDt":"2025-03-01T00:00:00",
+         "minInvstmtAmt":0.0,
+         "untrInvstmtVal":0.0,
+         "invstmtStbl":"Como não paga juros semestrais, é mais interessante para quem pode deixar o dinheiro render até o vencimento do investimento",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de curto prazo"
+      
+   },
+   {
+         "cd":172,
+         "nm":"Tesouro Selic 2027",
+         "featrs":"Título com rentabilidade diária vinculada à taxa de juros da economia (taxa Selic). Isso significa que se a taxa Selic aumentar a sua rentabilidade aumenta e se a taxa Selic diminuir, sua rentabilidade diminui.\r\n",
+         "mtrtyDt":"2027-03-01T00:00:00",
+         "minInvstmtAmt":107.99,
+         "untrInvstmtVal":10799.73,
+         "invstmtStbl":"Como não paga juros semestrais, é mais interessante para quem pode deixar o dinheiro render até o vencimento do investimento\r\n",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de curto prazo\r\n"
+      
+   },
+   {
+         "cd":163,
+         "nm":"Tesouro Prefixado 2022",
+         "featrs":"Título prefixado, ou seja, no momento da compra, você já sabe exatamente quanto irá receber no futuro (sempre R$ 1.000 por unidade de título.",
+         "mtrtyDt":"2022-01-01T00:00:00",
+         "minInvstmtAmt":0.0,
+         "untrInvstmtVal":0.0,
+         "invstmtStbl":"É mais interessante para quem pode deixar o seu dinheiro render até o vencimento do investimento, pois não paga juros semestrais. Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelo seu valor de mercado.",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de médio prazo."
+      
+   },
+   {
+         "cd":155,
+         "nm":"Tesouro Prefixado 2023",
+         "featrs":"Título prefixado, ou seja, no momento da compra, você já sabe exatamente quanto irá receber no futuro (sempre R$ 1.000 por unidade de título).",
+         "mtrtyDt":"2023-01-01T00:00:00",
+         "minInvstmtAmt":0.0,
+         "untrInvstmtVal":0.0,
+         "invstmtStbl":"É mais interessante para quem pode deixar o seu dinheiro render até o vencimento do investimento, pois não paga juros semestrais. Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelo seu valor de mercado.",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de longo prazo."
+      
+   },
+   {
+         "cd":146,
+         "nm":"Tesouro Prefixado com Juros Semestrais 2023",
+         "featrs":"Título prefixado, ou seja, no momento da compra, você já sabe exatamente quanto irá receber no futuro (sempre R$ 1.000 por unidade de título + último pagamento de  juros semestrais).",
+         "mtrtyDt":"2023-01-01T00:00:00",
+         "minInvstmtAmt":0.0,
+         "untrInvstmtVal":0.0,
+         "invstmtStbl":"É mais interessante para quem precisa dos seus rendimentos para complementar sua renda, pois paga juros a cada semestre (cupons de juros) Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelo seu valor de mercado.",
+         "rcvgIncm":""
+      
+   },
+   {
+         "cd":173,
+         "nm":"Tesouro Prefixado 2024",
+         "featrs":"Título prefixado, ou seja, no momento da compra, você já sabe exatamente quanto irá receber no futuro (sempre R$ 1.000 por unidade de título).\r\n",
+         "mtrtyDt":"2024-07-01T00:00:00",
+         "minInvstmtAmt":31.11,
+         "untrInvstmtVal":777.77,
+         "invstmtStbl":"É mais interessante para quem pode deixar o seu dinheiro render até o vencimento do investimento, pois não paga juro semestrais. Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelos seus valores de mercado.\r\n",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de curto prazo.\r\n"
+      
+   },
+   {
+         "cd":161,
+         "nm":"Tesouro Prefixado 2025",
+         "featrs":"Título prefixado, ou seja, no momento da compra, você já sabe exatamente quanto irá receber no futuro (sempre R$ 1.000 por unidade de título).",
+         "mtrtyDt":"2025-01-01T00:00:00",
+         "minInvstmtAmt":0.0,
+         "untrInvstmtVal":0.0,
+         "invstmtStbl":"É mais interessante para quem pode deixar o seu dinheiro render até o vencimento do investimento, pois não paga juro semestrais. Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelos seus valores de mercado.",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de médio prazo."
+      
+   },
+   {
+         "cd":151,
+         "nm":"Tesouro Prefixado com Juros Semestrais 2025",
+         "featrs":"Título prefixado, ou seja, no momento da compra, você já sabe exatamente quanto irá receber no futuro (sempre R$ 1.000 por unidade de título + último pagamento de  juros semestrais).",
+         "mtrtyDt":"2025-01-01T00:00:00",
+         "minInvstmtAmt":0.0,
+         "untrInvstmtVal":0.0,
+         "invstmtStbl":"É mais interessante para quem precisa dos seus rendimentos para complementar sua renda, pois paga juros a cada semestre (cupons de juros) Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelo seu valor de mercado.",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de longo prazo."
+      
+   },
+   {
+         "cd":165,
+         "nm":"Tesouro Prefixado 2026",
+         "featrs":"Título prefixado, ou seja, no momento da compra, você já sabe exatamente quanto irá receber no futuro (sempre R$ 1.000 por unidade de título).\r\n",
+         "mtrtyDt":"2026-01-01T00:00:00",
+         "minInvstmtAmt":33.57,
+         "untrInvstmtVal":671.40,
+         "invstmtStbl":"É mais interessante para quem pode deixar o seu dinheiro render até o vencimento do investimento, pois não paga juro semestrais. Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelos seus valores de mercado.",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de médio prazo.\r\n"
+      
+   },
+   {
+         "cd":157,
+         "nm":"Tesouro Prefixado com Juros Semestrais 2027",
+         "featrs":"Título prefixado, ou seja, no momento da compra, você já sabe exatamente quanto irá receber no futuro (sempre R$ 1.000 por unidade de título + último pagamento de juros semestrais).",
+         "mtrtyDt":"2027-01-01T00:00:00",
+         "minInvstmtAmt":0.0,
+         "untrInvstmtVal":0.0,
+         "invstmtStbl":"É mais interessante para quem precisa dos seus rendimentos para complementar sua renda, pois paga juros a cada semestre (cupons de juros). Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelo seu valor de mercado.",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de longo prazo."
+      
+   },
+   {
+         "cd":162,
+         "nm":"Tesouro Prefixado com Juros Semestrais 2029",
+         "featrs":"Título prefixado, ou seja, no momento da compra, você já sabe exatamente quanto irá receber no futuro (sempre R$ 1.000 por unidade de título + último pagamento de juros semestrais).",
+         "mtrtyDt":"2029-01-01T00:00:00",
+         "minInvstmtAmt":0.0,
+         "untrInvstmtVal":0.0,
+         "invstmtStbl":"É mais interessante para quem precisa dos seus rendimentos para complementar sua renda, pois paga juros a cada semestre (cupons de juros). Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelo seu valor de mercado.",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de longo prazo."
+      
+   },
+   {
+         "cd":166,
+         "nm":"Tesouro Prefixado com Juros Semestrais 2031",
+         "featrs":"Título prefixado, ou seja, no momento da compra, você já sabe exatamente quanto irá receber no futuro (sempre R$ 1.000 por unidade de título + último pagamento de juros semestrais).\r\n",
+         "mtrtyDt":"2031-01-01T00:00:00",
+         "minInvstmtAmt":30.21,
+         "untrInvstmtVal":1007.18,
+         "invstmtStbl":"É mais interessante para quem precisa dos seus rendimentos para complementar sua renda, pois paga juros a cada semestre (cupons de juros). Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelo seu valor de mercado.\r\n",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de longo prazo.\r\n"
+      
+   },
+   {
+         "cd":103,
+         "nm":"Tesouro IPCA+ 2024",
+         "featrs":"Título pós-fixado, uma vez que parte do seu rendimento acompanha a variação da taxa de inflação (IPCA).",
+         "mtrtyDt":"2024-08-15T00:00:00",
+         "minInvstmtAmt":0.0,
+         "untrInvstmtVal":0.0,
+         "invstmtStbl":"Aumenta o poder de compra do seu dinheiro, pois seu rendimento é compostos por uma taxa de juros + a variação da inflação (IPCA). É mais interessante para quem pode deixar o dinheiro render até o vencimento do investimento, pois não paga juros semestrais. Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelo seu valor de mercado.",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de longo prazo."
+      
+   },
+   {
+         "cd":84,
+         "nm":"Tesouro IPCA+ com Juros Semestrais 2024",
+         "featrs":"Título pós-fixado, uma vez que parte do seu rendimento acompanha a variação da taxa de inflação (IPCA).",
+         "mtrtyDt":"2024-08-15T00:00:00",
+         "minInvstmtAmt":0.0,
+         "untrInvstmtVal":0.0,
+         "invstmtStbl":"Aumenta o poder de compra do seu dinheiro, pois seu rendimento é composto por uma taxa de juros + a variação da inflação (IPCA). É mais interessante para quem precisa do seu rendimento para complementar sua renda, pois paga juros a cada semestre (cupons de juros). Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelo seu valor de mercado. ",
+         "rcvgIncm":""
+      
+   },
+   {
+         "cd":170,
+         "nm":"Tesouro IPCA+ 2026",
+         "featrs":"Título pós-fixado, uma vez que parte do seu rendimento acompanha a variação da taxa de inflação (IPCA).\r\n",
+         "mtrtyDt":"2026-08-15T00:00:00",
+         "minInvstmtAmt":58.56,
+         "untrInvstmtVal":2928.47,
+         "invstmtStbl":"Aumenta o poder de compra do seu dinheiro, pois seu rendimento é composto por uma taxa de juros + a variação da inflação (IPCA). É mais interessante para quem pode deixar o dinheiro render até o vencimento do investimento, pois não paga juros semestrais. Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelo seu valor de mercado.\r\n",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de longo prazo.\r\n"
+      
+   },
+   {
+         "cd":156,
+         "nm":"Tesouro IPCA+ com Juros Semestrais 2026",
+         "featrs":"Título pós-fixado, uma vez que parte do seu rendimento acompanha a variação da taxa de inflação (IPCA).",
+         "mtrtyDt":"2026-08-15T00:00:00",
+         "minInvstmtAmt":0.0,
+         "untrInvstmtVal":0.0,
+         "invstmtStbl":"Aumenta o poder de compra do seu dinheiro, pois seu rendimento é composto por uma taxa de juros + a variação da inflação (IPCA). É mais interessante para quem precisa do seu rendimento para complementar sua renda, pois paga juros a cada semestre (cupons de juros). Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelo seu valor de mercado.",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de longo prazo."
+      
+   },
+   {
+         "cd":167,
+         "nm":"Tesouro IPCA+ com Juros Semestrais 2030",
+         "featrs":"Título pós-fixado, uma vez que parte do seu rendimento acompanha a variação da taxa de inflação (IPCA).\r\n",
+         "mtrtyDt":"2030-08-15T00:00:00",
+         "minInvstmtAmt":40.20,
+         "untrInvstmtVal":4020.02,
+         "invstmtStbl":"Aumenta o poder de compra do seu dinheiro, pois seu rendimento é composto por uma taxa de juros + a variação da inflação (IPCA). É mais interessante para quem precisa do seu rendimento para complementar sua renda, pois paga juros a cada semestre (cupons de juros). Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelo seu valor de mercado. \r\n",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de longo prazo.\r\n"
+      
+   },
+   {
+         "cd":138,
+         "nm":"Tesouro IPCA+ 2035",
+         "featrs":"Título pós-fixado, uma vez que parte do seu rendimento acompanha a variação da taxa de inflação (IPCA).",
+         "mtrtyDt":"2035-05-15T00:00:00",
+         "minInvstmtAmt":39.31,
+         "untrInvstmtVal":1965.88,
+         "invstmtStbl":"Aumenta o poder de compra do seu dinheiro, pois seu rendimento é compostos por uma taxa de juros + a variação da inflação (IPCA). É mais interessante para quem pode deixar o dinheiro render até o vencimento do investimento, pois não paga juros semestrais. Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelo seu valor de mercado.",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de longo prazo."
+      
+   },
+   {
+         "cd":111,
+         "nm":"Tesouro IPCA+ com Juros Semestrais 2035",
+         "featrs":"Título pós-fixado, uma vez que parte do seu rendimento acompanha a variação da taxa de inflação (IPCA).",
+         "mtrtyDt":"2035-05-15T00:00:00",
+         "minInvstmtAmt":0.0,
+         "untrInvstmtVal":0.0,
+         "invstmtStbl":"Aumenta o poder de compra do seu dinheiro, pois seu rendimento é composto por uma taxa de juros + a variação da inflação (IPCA). É mais interessante para quem precisa do seu rendimento para complementar sua renda, pois paga juros a cada semestre (cupons de juros). Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelo seu valor de mercado. ",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de longo prazo."
+      
+   },
+   {
+         "cd":168,
+         "nm":"Tesouro IPCA+ com Juros Semestrais 2040",
+         "featrs":"Título pós-fixado, uma vez que parte do seu rendimento acompanha a variação da taxa de inflação (IPCA).\r\n",
+         "mtrtyDt":"2040-08-15T00:00:00",
+         "minInvstmtAmt":42.42,
+         "untrInvstmtVal":4242.64,
+         "invstmtStbl":"Aumenta o poder de compra do seu dinheiro, pois seu rendimento é composto por uma taxa de juros + a variação da inflação (IPCA). É mais interessante para quem precisa do seu rendimento para complementar sua renda, pois paga juros a cada semestre (cupons de juros). Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelo seu valor de mercado. \r\n",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de longo prazo.\r\n"
+      
+   },
+   {
+         "cd":160,
+         "nm":"Tesouro IPCA+ 2045",
+         "featrs":"Título pós-fixado, uma vez que parte do seu rendimento acompanha a variação da taxa de inflação (IPCA).",
+         "mtrtyDt":"2045-05-15T00:00:00",
+         "minInvstmtAmt":37.77,
+         "untrInvstmtVal":1259.00,
+         "invstmtStbl":"Aumenta o poder de compra do seu dinheiro, pois seu rendimento é composto por uma taxa de juros + a variação da inflação (IPCA). É mais interessante para quem pode deixar o dinheiro render até o vencimento do investimento, pois não paga juros semestrais. Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelo seu valor de mercado.",
+         "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de longo prazo."
+      
+   },
+   {
+      "cd":93,
+      "nm":"Tesouro IPCA+ com Juros Semestrais 2045",
+      "featrs":"Título pós-fixado, uma vez que parte do seu rendimento acompanha a variação da taxa de inflação (IPCA).",
+      "mtrtyDt":"2045-05-15T00:00:00",
+      "minInvstmtAmt":0.0,
+      "untrInvstmtVal":0.0,
+      "invstmtStbl":"Aumenta o poder de compra do seu dinheiro, pois seu rendimento é composto por uma taxa de juros + a variação da inflação (IPCA). É mais interessante para quem precisa do seu rendimento para complementar sua renda, pois paga juros a cada semestre (cupons de juros). Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelo seu valor de mercado. ",
+      "rcvgIncm":""
+   
+   },
+   {
+      "cd":147,
+      "nm":"Tesouro IPCA+ com Juros Semestrais 2050",
+      "featrs":"Título pós-fixado, uma vez que parte do seu rendimento acompanha a variação da taxa de inflação (IPCA).",
+      "mtrtyDt":"2050-08-15T00:00:00",
+      "minInvstmtAmt":0.0,
+      "untrInvstmtVal":0.0,
+      "invstmtStbl":"Aumenta o poder de compra do seu dinheiro, pois seu rendimento é composto por uma taxa de juros + a variação da inflação (IPCA). É mais interessante para quem precisa do seu rendimento para complementar sua renda, pois paga juros a cada semestre (cupons de juros). Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelo seu valor de mercado. ",
+      "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de longo prazo."
+   
+   },
+   {
+      "cd":169,
+      "nm":"Tesouro IPCA+ com Juros Semestrais 2055",
+      "featrs":"Título pós-fixado, uma vez que parte do seu rendimento acompanha a variação da taxa de inflação (IPCA).\r\n",
+      "mtrtyDt":"2055-05-15T00:00:00",
+      "minInvstmtAmt":44.55,
+      "untrInvstmtVal":4455.14,
+      "invstmtStbl":"Aumenta o poder de compra do seu dinheiro, pois seu rendimento é composto por uma taxa de juros + a variação da inflação (IPCA). É mais interessante para quem precisa do seu rendimento para complementar sua renda, pois paga juros a cada semestre (cupons de juros). Em caso de resgate antecipado, o Tesouro Nacional garante sua recompra pelo seu valor de mercado. \r\n",
+      "rcvgIncm":"Indicado para aqueles que querem realizar investimentos de longo prazo.\r\n"
+   
+   },
+   {
+      "cd":66,
+      "nm":"Tesouro IGPM+ com Juros Semestrais 2031",
+      "featrs":"Título pós-fixado, uma vez que parte do seu rendimento acompanha a variação da taxa de inflação (IGP-M).",
+      "mtrtyDt":"2031-01-01T00:00:00",
+      "minInvstmtAmt":0.0,
+      "untrInvstmtVal":0.0,
+      "invstmtStbl":"",
+      "rcvgIncm":""
+   }
+]

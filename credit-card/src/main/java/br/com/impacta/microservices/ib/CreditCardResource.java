@@ -68,7 +68,7 @@ public class CreditCardResource {
         if(creditCard.isPersistent()) { 
             for(Purchase purchase:creditCard.getPurchases()) {
                 Debit debit = new Debit();
-                debit.setDebit(purchase.getValue());
+                debit.setDebit(purchase.getValue().negate());
                 debitRestClient.addDebit(debit);
             }
             return Response.created(URI.create("/create" + creditCard.id)).build();

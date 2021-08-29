@@ -3,30 +3,28 @@ quarkus:
     theme: material
     always-include: true
 
-  datasource:
-    db-kind: postgresql
-
   live-reload:
     instrumentation: true
 
-# dev profile
-"%dev":
-  quarkus:
-    datasource:
-      db-kind: postgresql
-      username: postgres
-      password: postgres
-      jdbc:
-        url: jdbc:postgresql://localhost:5432/bank_accounts
-    hibernate-orm:
-      database:
-        generation: drop-and-create
-    oidc:
-      auth-server-url: http://localhost:10520/auth/realms/Quarkus
-      client-id: customer-app
-      credentials:
-        secret: 5ffb3490-4d7b-42ed-8cac-e6774550bc92
-                     
+  datasource:
+    db-kind: postgresql
+    username: postgres
+    password: postgres
+    jdbc:
+      url: jdbc:postgresql://postgres-db:5432/bank_accounts
+  hibernate-orm:
+    database:
+      generation: drop-and-create
+  oidc:
+    auth-server-url: http://localhost:10520/auth/realms/Quarkus
+    client-id: customer-app
+    credentials:
+      secret: 5ffb3490-4d7b-42ed-8cac-e6774550bc92
+
+  container-image:
+    build: true
+    group: microservices-impacta
+    name: account
 # Fault Tolerance Test
   isTestingFault: false
 # Retry

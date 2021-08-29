@@ -26,10 +26,21 @@ Microserviço responsável pela orquestração da conta do cliente, com serviço
 - Docker Image Keycloak: [Jboss/Keycloak](https://hub.docker.com/r/jboss/keycloak)
 - Docker Postgres: [Postgres](https://hub.docker.com/_/postgres)
 
+Crie uma rede:
+```
+docker network create -d bridge microservices  
+```
+
 Rodar os containers: 
 ```
-docker run --rm=true -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=bank_accounts -p 5432:5432 -d --name postgres-db postgres:9.6.18-alpine
-docker run -p 10520:8080 viniciusmartinez/quarkus-rhsso:1.0
+docker run --rm=true --net=microservices -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=bank_accounts -p 5432:5432 -d --name postgres-db postgres:9.6.18-alpine
+docker run --net=microservices -p 10520:8080 viniciusmartinez/quarkus-rhsso:1.0
+docker run --net=microservices -p 10020:8080 pauloedums/credit:1.0.0-SNAPSHOT
+docker run <user>/credit-card --net=microservices
+docker run <user>/debit --net=microservices
+docker run <user>/extract-balance-api --net=microservices
+docker run <user>/investments --net=microservices
+docker run <user>/account --net=microservices
 ```
 
 ## Adicionando as tabelas no BD Postgres

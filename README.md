@@ -18,6 +18,12 @@ Microserviço responsável pela orquestração da conta do cliente, com serviço
 -    OpenID Connect
 -    Keycloak Authorization
 
+# Criação das imagens 
+
+Executar o script bash para criar as imagens do docker do projeto.
+Primeiro é preciso liberar acesso no linux para sua execução com o comando `chmod u+x docker-images.sh`.
+
+Depois é preciso executar o arquivo bash `./docker-images.sh`. Este executável irá criar as imagens dos microserviços no docker para serem utilizadas na sequência com o uso do docker-compose(a confirmar).
 
 # Ambientes
 
@@ -26,42 +32,16 @@ Microserviço responsável pela orquestração da conta do cliente, com serviço
 - Docker Image Keycloak: [Jboss/Keycloak](https://hub.docker.com/r/jboss/keycloak)
 - Docker Postgres: [Postgres](https://hub.docker.com/_/postgres)
 
-Crie uma rede:
-```
-docker network create -d bridge microservices  
-```
+Primeiro é preciso liberar acesso no linux para sua execução com o comando `chmod u+x docker-containers.sh`.
 
-Rodar os containers: 
-```
-docker run --rm=true --net=microservices -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=bank_accounts -p 5432:5432 -d --name postgres-db postgres:9.6.18-alpine
-docker run --net=microservices -p 10520:8080 viniciusmartinez/quarkus-rhsso:1.0
-docker run --net=microservices -p 10020:8080 pauloedums/credit:1.0.0-SNAPSHOT
-docker run <user>/credit-card --net=microservices
-docker run <user>/debit --net=microservices
-docker run <user>/extract-balance-api --net=microservices
-docker run <user>/investments --net=microservices
-docker run <user>/account --net=microservices
-```
-
-## Adicionando as tabelas no BD Postgres
-
-Copie o arquivo `schemas.sql` para o container do postgres usando o comando abaixo.
-```
-docker cp ./schemas.sql postgres-db:/docker-entrypoint-initdb.d/schemas.sql
-```
-
-Depois execute o comando para criar o banco de dados e as tabelas.
-```
-docker exec -i postgres-db bash -c 'psql -U postgres -a -f docker-entrypoint-initdb.d/schemas.sql'
-```
-
+Rode os containers `./docker-containers.sh`.
 
 ## Keycloak para autenticação e acesso ao sistema bancário
 
 
 Acessar o [Auth](http://localhost:10520/auth/) clicar em `Administration Console` e utilizar o usuário e senha `admin` e adicionar a configuração disponível no arquivo quarkus-realm.json na aba Quarkus > Add Realm fazendo o upload do arquivo.
 
-Para testar o token adicionando usuário 'alice' com senha 'alice':
+Para testar o token adicionando usuário 'user1' com senha 'user1':
 
 Usando usuário cliente comum:
 ```

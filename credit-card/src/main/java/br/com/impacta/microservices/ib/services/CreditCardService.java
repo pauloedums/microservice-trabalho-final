@@ -48,7 +48,6 @@ public class CreditCardService {
 
     @Transactional
     public Purchase addPurchase(Purchase purchase){
-        System.out.println(purchase);
         Purchase.persist(purchase);
         return purchase;
     }

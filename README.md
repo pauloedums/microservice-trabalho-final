@@ -36,6 +36,9 @@ Primeiro é preciso liberar acesso no linux para sua execução com o comando `c
 
 Rode os containers `./docker-containers.sh`.
 
+Utilize o arquivo tesouro-direto.json para adicionar investimentos no endpoint `http://localhost:9020/investments`.
+
+
 ## Keycloak para autenticação e acesso ao sistema bancário
 
 

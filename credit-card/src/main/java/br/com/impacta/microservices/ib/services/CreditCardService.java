@@ -41,7 +41,6 @@ public class CreditCardService {
             creditCard.getPurchases().add(purchase);
             return creditCard;
         } else {
-           System.out.println("Charge Denied"); 
            return creditCard;
         }
 	}

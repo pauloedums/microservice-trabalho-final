@@ -13,6 +13,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
+import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Timeout;
+import org.eclipse.microprofile.faulttolerance.Retry;
+import java.util.EmptyStackException;
+
 import br.com.impacta.microservices.ib.model.Credit;
 import br.com.impacta.microservices.ib.services.CreditService;
 
@@ -24,23 +30,47 @@ public class CreditResource {
 
     
     @GET
+    @Fallback(fallbackMethod = "fallbackGetAllCredits")
+    @CircuitBreaker(
+            requestVolumeThreshold = 4,
+            failureRatio = 0.5,
+            delay = 200,
+            successThreshold =2)
+    @Retry(maxRetries = 5)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllCredits(){
         List<Credit> credits = creditService.listCredit();
+        if(credits.isEmpty()){
+            throw new EmptyStackException();
+        }
         return Response.ok(credits).build();
     }
 
     @POST
     @Transactional
+    @Timeout(2000)
+    @Fallback(fallbackMethod = "fallbackAddCredit")
+    @CircuitBreaker(
+        requestVolumeThreshold = 4,
+        failureRatio = 0.5,
+        delay = 200,
+        successThreshold = 2)
+    @Retry(maxRetries = 5)
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addCredit(Credit credit){
-        creditService.addCredit(credit);
-        if(credit.isPersistent()){
+        if(credit.credit.intValue() != 0) {
+            creditService.addCredit(credit);
             return Response.created(URI.create("/credit" + credit.id)).build();
         }
-        
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
+    private Response fallbackAddCredit(Credit credit){
+        return Response.ok("Não foi possível adicionar o crédito.").build();
+    }
+
+    private Response fallbackGetAllCredits(){
+        return Response.ok("Não foi possível trazer a lista de créditos.").build();
+    }
 }

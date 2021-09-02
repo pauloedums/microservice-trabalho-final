@@ -2,6 +2,7 @@ package br.com.impacta.microservices.ib.services;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.ArrayList;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -47,11 +48,12 @@ public class InvestmentsService {
         return TesouroDireto.find("cd", cd).firstResult();
     }
 
-    public BigDecimal lote(TesouroDireto tesouroDireto, BigDecimal qty) {
+    public BigDecimal lote(TesouroDireto tesouroDireto,BigDecimal investmentValue, BigDecimal qty) {
         if(tesouroDireto.getMinInvstmtAmt().intValue() == 0){
             tesouroDireto.setMinInvstmtAmt(new BigDecimal(1));
         } 
-        return tesouroDireto.getMinInvstmtAmt().multiply(qty);
+        BigDecimal reservedValue = new BigDecimal(investmentValue.intValue()).multiply(qty);
+        return tesouroDireto.getMinInvstmtAmt().multiply(reservedValue);
     }
 
 
@@ -79,18 +81,21 @@ public class InvestmentsService {
         if (spendingLimit.subtract(investmentValue).intValue() > 0) {         
             
             // TODO -> pegar novo balanço após mais um débito.
-
-            tesouroDireto.getClients().add(investment.getClient());
+            List<Client> addClients = new ArrayList<Client>();
             investment.getClient().setBalance(spendingLimit);
-            Client.persist(investment.getClient());
+            addClients.add(investment.getClient());
+            tesouroDireto.setClients(addClients);
+            
+            Client.persist(investment.getClient());        
+
+            TesouroDireto.persist(tesouroDireto);
 
             Investment.persist(investment);
 
             return tesouroDireto;
             
         } else {
-            System.out.println("No Balance available to do investments"); 
-            return tesouroDireto;
+            return new TesouroDireto();
         }
 	}
 }

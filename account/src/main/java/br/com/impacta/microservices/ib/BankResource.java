@@ -22,6 +22,7 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import br.com.impacta.microservices.ib.interfaces.BalanceRestClient;
 import br.com.impacta.microservices.ib.model.Client;
+import br.com.impacta.microservices.ib.model.Balance;
 import br.com.impacta.microservices.ib.services.ClientService;
 
 
@@ -60,7 +61,8 @@ public class BankResource {
     @Path("/client")
     @RolesAllowed("admin")
     public Client addClient(Client client){
-        client.setBalance(balanceRestClient.getBalance().getBalance());
+        Balance newBalance = balanceRestClient.getBalance();
+        client.setBalance(newBalance);
         Client clientEntity = clientService.addClient(client);
         return clientEntity;
     }

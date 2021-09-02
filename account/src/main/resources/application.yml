@@ -14,7 +14,8 @@ quarkus:
       url: jdbc:postgresql://postgres-db:5432/bank_accounts
   hibernate-orm:
     database:
-      generation: drop-and-create
+      generation: 
+       ~: drop-and-create
   oidc:
     auth-server-url: http://localhost:10520/auth/realms/Quarkus
     client-id: customer-app

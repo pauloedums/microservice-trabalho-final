@@ -55,10 +55,10 @@ public class Client extends PanacheEntityBase  {
         this.lastName = lastName;
     }
 
-    public Integer getBalance() {
+    public Balance getBalance() {
         return balance;
     }
-    public void setBalance(Integer balance) {
+    public void setBalance(Balance balance) {
         this.balance = balance;
     }
 

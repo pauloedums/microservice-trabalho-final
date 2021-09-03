@@ -4,7 +4,7 @@ public enum FallbackCreditCard {
     
     ADD_PURCHASE("Erro ao gerar compra no cartão de crédito."),
     ADD_CREDIT_CARD("Erro ao gerar cartão de crédito."),
-    GET_ALL_PURCHASES("Erro ao procurar todas as compras."),
+    GET_ALL_PURCHASES("Você ainda não possui nenhuma compra."),
     GET_CREDIT_CARD_BY_NUMBER("Erro ao procurar o cartão de crédito."),
     GET_ALL("Erro ao procurar cartões de crédito.");
 
@@ -18,5 +18,4 @@ public enum FallbackCreditCard {
         this.description = description;
     }
 
-    
 }

@@ -80,7 +80,6 @@ public class InvestmentsService {
 
         if (spendingLimit.subtract(investmentValue).intValue() > 0) {         
             
-            // TODO -> pegar novo balanço após mais um débito.
             List<Client> addClients = new ArrayList<Client>();
             investment.getClient().setBalance(spendingLimit);
             addClients.add(investment.getClient());

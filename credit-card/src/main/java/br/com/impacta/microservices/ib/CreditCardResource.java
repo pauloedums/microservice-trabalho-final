@@ -57,7 +57,7 @@ public class CreditCardResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCreditCardByNumber(@PathParam("cardNumber") int cardNumber){
         CreditCard card = creditCardService.findCreditCardById(cardNumber);
-        if(card.isPersistent()){
+        if(card.equals(new CreditCard())){
             throw new EmptyStackException();
         }
         return Response.ok(card).build();

@@ -5,6 +5,3 @@ resources:
   - deployments.yaml
   - ingress.yaml
   - services.yaml
-  - postgres/postgres-db-config.yaml
-  - postgres/postgres-db-service.yaml
-  - postgres/postgres.yaml

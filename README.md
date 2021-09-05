@@ -112,4 +112,5 @@ curl -X 'GET' \
 
 ## Excluir o namespace e todas as dependências
 
-Rode o shell script `kubectl-delete-microservices.sh`.
+Primeiro é preciso liberar acesso no linux para sua execução com o comando `chmod u+x kubectl-delete-microservices.sh`.
+Rode o shell script `./kubectl-delete-microservices.sh`.

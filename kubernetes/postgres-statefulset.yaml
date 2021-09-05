@@ -1,0 +1,82 @@
+# PostgreSQL StatefulSet ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-db
+  namespace: microservices-impacta
+  labels:
+    app: postgres-db
+data:
+  POSTGRES_DB: bank_accounts
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  PGDATA: /data/pgdata
+---
+# PostgreSQL StatefulSet - ConfigMap
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-db
+  namespace: microservices-impacta
+spec:
+  serviceName: postgres-db-lb
+  selector:
+    matchLabels:
+      app: postgres-db
+  replicas: 6
+  template:
+    metadata:
+      labels:
+        app: postgres-db
+    spec:
+      containers:
+        - name: postgresql
+          image: postgres:latest
+          ports:
+            - containerPort: 5432
+          env: 
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          volumeMounts:
+          - name: conf
+            mountPath: /var/lib/postgresql/conf
+            readOnly: false
+          - name: data
+            mountPath: /var/lib/postgresql/data
+            readOnly: false
+
+          # Config from ConfigMap
+          envFrom:
+          - configMapRef:
+              name: postgres-db
+      volumes:
+      - name: conf
+        configMap:
+          name: postgres-db
+          defaultMode: 0755
+  # Volume Claim
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteMany"]
+        storageClassName: "standard"
+        resources:
+          requests:
+            storage: 50Mi
+---
+# PostgreSQL StatefulSet Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-db-lb
+  namespace: microservices-impacta
+spec:
+  clusterIP: None
+  selector:
+    app: postgres-db
+  ports:
+    - port: 5432
+      targetPort: 5432

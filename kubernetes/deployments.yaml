@@ -6,7 +6,7 @@ metadata:
   name: ms-impacta-debit
   namespace: microservices-impacta
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: ms-impacta-debit
@@ -29,7 +29,7 @@ metadata:
   name: ms-impacta-credit
   namespace: microservices-impacta
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: ms-impacta-credit
@@ -52,7 +52,7 @@ metadata:
   name: ms-impacta-extract-balance
   namespace: microservices-impacta
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: ms-impacta-extract-balance
@@ -75,7 +75,7 @@ metadata:
   name: ms-impacta-credit-card
   namespace: microservices-impacta
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: ms-impacta-credit-card
@@ -98,7 +98,7 @@ metadata:
   name: ms-impacta-investments
   namespace: microservices-impacta
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: ms-impacta-investments

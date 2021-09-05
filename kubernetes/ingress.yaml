@@ -25,3 +25,15 @@ spec:
       - backend:
           serviceName: ms-impacta-extract-balance-svc
           servicePort: 9000
+  - host: microservices-impacta-credit-card.com
+    http:
+      paths:
+      - backend:
+          serviceName: ms-impacta-credit-card-svc
+          servicePort: 9010
+  - host: microservices-impacta-investments.com
+    http:
+      paths:
+      - backend:
+          serviceName: ms-impacta-investments-svc
+          servicePort: 9020

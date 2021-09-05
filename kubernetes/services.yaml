@@ -37,3 +37,29 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 9000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms-impacta-credit-card-svc
+  namespace: microservices-impacta
+spec:
+  selector:
+    app: ms-impacta-credit-card
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 9010
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms-impacta-investments-svc
+  namespace: microservices-impacta
+spec:
+  selector:
+    app: ms-impacta-investments
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 9020

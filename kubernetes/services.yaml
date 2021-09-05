@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms-impacta-debit-svc
+  namespace: microservices-impacta
+spec:
+  selector:
+    app: ms-impacta-debit
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 10030
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms-impacta-credit-svc
+  namespace: microservices-impacta
+spec:
+  selector:
+    app: ms-impacta-credit
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 10020
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms-impacta-extract-balance-svc
+  namespace: microservices-impacta
+spec:
+  selector:
+    app: ms-impacta-extract-balance
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 9000

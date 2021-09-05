@@ -30,6 +30,7 @@ public class DebitResource {
 
     @GET
     @Fallback(fallbackMethod = "fallbackGetAll")
+    @Timeout(5000)
     @CircuitBreaker(
             requestVolumeThreshold = 4,
             failureRatio = 0.5,
@@ -48,7 +49,7 @@ public class DebitResource {
 
     @POST
     @Transactional
-    @Timeout(2000)
+    @Timeout(5000)
     @Fallback(fallbackMethod = "fallbackAddDebit")
     @CircuitBreaker(
             requestVolumeThreshold = 4,

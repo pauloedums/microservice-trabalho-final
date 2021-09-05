@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ms-impacta-debit-ingress
+  namespace: microservices-impacta
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: microservices-impacta-debit.com
+    http:
+      paths:
+      - backend:
+          serviceName: ms-impacta-debit-svc
+          servicePort: 10030
+  - host: microservices-impacta-credit.com
+    http:
+      paths:
+      - backend:
+          serviceName: ms-impacta-credit-svc
+          servicePort: 10020
+  - host: microservices-impacta-extract-balance.com
+    http:
+      paths:
+      - backend:
+          serviceName: ms-impacta-extract-balance-svc
+          servicePort: 9000

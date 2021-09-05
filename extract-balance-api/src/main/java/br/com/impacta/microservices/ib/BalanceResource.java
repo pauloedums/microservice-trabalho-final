@@ -1,5 +1,7 @@
 package br.com.impacta.microservices.ib;
 
+import java.util.EmptyStackException;
+
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -23,9 +25,8 @@ public class BalanceResource {
     ExtractBalanceService extractService;
 
     @GET
-
     @Fallback(fallbackMethod = "fallbackGetBalance")
-    @Timeout(2000)
+    @Timeout(5000)
     @CircuitBreaker(
         requestVolumeThreshold=4,
         failureRatio=0.5,
@@ -36,6 +37,9 @@ public class BalanceResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBalance(){
         Balance balance = extractService.getBalance();
+        if(balance.equals(new Balance())){
+            throw new EmptyStackException();
+        }
         return Response.ok(balance).build();
     }
 

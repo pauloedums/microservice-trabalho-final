@@ -1,0 +1,36 @@
+# PostgreSQL StatefulSet - ConfigMap
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-db
+  namespace: microservices-impacta
+spec:
+  serviceName: postgres-db-service
+  selector:
+    matchLabels:
+      app: postgres-db
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: postgres-db
+    spec:
+      containers:
+        - name: postgres-db
+          image: postgres:latest
+          volumeMounts:
+            - name: postgres-db-disk
+              mountPath: /data
+          # Config from ConfigMap
+          envFrom:
+          - configMapRef:
+              name: postgres-db-config
+  # Volume Claim
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-db-disk
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 25Gi

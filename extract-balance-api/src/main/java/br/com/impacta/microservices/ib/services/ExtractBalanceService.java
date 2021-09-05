@@ -31,11 +31,15 @@ public class ExtractBalanceService {
     public Extract getExtract(){
         //Get Credito
         List<Credit> creditList = creditRestClient.getAll();
+        List<Debit> debitList = debtRestClient.getAll();
+
+        if(creditList.isEmpty() && debitList.isEmpty()){
+            return new Extract();
+        }
         Extract extrato = new Extract();
         extrato.setCreditList(creditList);
         BigDecimal creditSum = creditList.stream().map(Credit::getCredit).reduce(BigDecimal.ZERO, BigDecimal::add);
         //Get Debito
-        List<Debit> debitList = debtRestClient.getAll();
         extrato.setDebitList(debitList);
         BigDecimal debitSum = debitList.stream().map(Debit::getDebit).reduce(BigDecimal.ZERO, BigDecimal::add);
         //Calcular saldo
@@ -46,6 +50,9 @@ public class ExtractBalanceService {
 
     public Balance getBalance(){
         Balance balance = new Balance();
+        if(getExtract().getBalance().intValue() <= 0){
+            return new Balance();
+        }
         balance.setBalance(getExtract().getBalance());
         return balance;
     }

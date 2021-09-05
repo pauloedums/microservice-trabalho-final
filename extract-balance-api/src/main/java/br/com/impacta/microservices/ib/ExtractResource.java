@@ -1,5 +1,7 @@
 package br.com.impacta.microservices.ib;
 
+import java.util.EmptyStackException;
+
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -24,7 +26,7 @@ public class ExtractResource {
 
     @GET
     @Fallback(fallbackMethod = "fallbackGetExtract")
-    @Timeout(2000)
+    @Timeout(5000)
     @CircuitBreaker(
         requestVolumeThreshold=4,
         failureRatio=0.5,
@@ -35,11 +37,14 @@ public class ExtractResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getExtract(){
         Extract extract = extractService.getExtract();
+        if(extract.equals(new Extract())){
+            throw new EmptyStackException();
+        }
         return Response.ok(extract).build();
     }
 
 
     private Response fallbackGetExtract(){
-        return Response.ok("Não foi possível encontrar dados para criar o saldo.").build();
+        return Response.ok("Não foi possível encontrar dados para criar o extrato.").build();
     }
 }

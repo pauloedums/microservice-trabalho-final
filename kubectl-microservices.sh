@@ -1,6 +1,5 @@
 #Start do minikube
 minikube start --memory=8192 --cpus=3
-minikube addons enable ingress
 minikube status
 
 # Adicionar deploys para o kubernetes
@@ -14,6 +13,3 @@ minikube -n microservices-impacta service postgres-db-lb --url
 
 # comando para checar o ingress do namespace
 kubectl get ingress -n microservices-impacta
-
-#comando para excluir o namespace
-kubectl delete ns microservices-impacta

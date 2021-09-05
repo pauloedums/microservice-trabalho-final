@@ -6,6 +6,7 @@ Trabalho de Disciplina - Microservices &amp; Serveless Architecture
 Microserviço responsável pela orquestração da conta do cliente, com serviço de saldo, cartão de crédito e investimentos.
 
 ## Dependências utilizadas
+ [minikube](https://minikube.sigs.k8s.io/docs/start/)
  [Quarkus](https://code.quarkus.io/) com extensões:
 -    YAML Configuration
 -    RESTEasy JAX-RS
@@ -18,25 +19,48 @@ Microserviço responsável pela orquestração da conta do cliente, com serviço
 -    OpenID Connect
 -    Keycloak Authorization
 
-# Criação das imagens 
 
-Executar o script bash para criar as imagens do docker do projeto.
-Primeiro é preciso liberar acesso no linux para sua execução com o comando `chmod u+x docker-images.sh`.
+## Ambientes
 
-Depois é preciso executar o arquivo bash `./docker-images.sh`. Este executável irá criar as imagens dos microserviços no docker para serem utilizadas na sequência com o uso do docker-compose(a confirmar).
+É necessário subir um servidor de autenticação local no Kubernetes para utilizar requisições usando JWT como recurso de segurança. Como opção foi selecionado o Banco de Dados PostGresSQL.
 
-# Ambientes
+- Image Keycloak: [Jboss/Keycloak](https://hub.docker.com/r/jboss/keycloak)
+- Postgres: [Postgres](https://hub.docker.com/_/postgres)
 
-É necessário subir um servidor de autenticação local na máquina para utilizar requisições usando JWT como recurso de segurança. Como opção foi selecionado o Banco de Dados PostGresSQL.
+Primeiro é preciso liberar acesso no linux para sua execução com o comando `chmod u+x kubectl-microservices.sh`.
 
-- Docker Image Keycloak: [Jboss/Keycloak](https://hub.docker.com/r/jboss/keycloak)
-- Docker Postgres: [Postgres](https://hub.docker.com/_/postgres)
+Após isto execute o shell script `./kubectl-microservices.sh`.
 
-Primeiro é preciso liberar acesso no linux para sua execução com o comando `chmod u+x docker-containers.sh`.
+Este comando irá criar o namespace `microservicos-impacta` e todas as suas dependências.
 
-Rode os containers `./docker-containers.sh`.
 
-Utilize o arquivo tesouro-direto.json para adicionar investimentos no endpoint `http://localhost:9020/investments`.
+## Adição de hostnames para teste local
+
+Por não estarmos utilizando a nuvem pública é necessário adicionar a configuração no arquivo hosts da máquina.
+
+Mas antes precisamos habilitar o ingress dentro do namespace utilizado.
+Para isto rode o comando `minikube addons enable ingress`.
+
+
+### importante!
+
+Cheque se o seu ip utilizado corresponde com os ips abaixo, para isto rode o comando `kubectl get ingress -n microservices-impacta`.
+
+Utilizando o ambiente linux atualize o arquivo `sudo vim /etc/hosts` com os endereços abaixo.
+
+```
+192.168.49.2    microservices-impacta-debit.com
+192.168.49.2    microservices-impacta-credit.com
+192.168.49.2    microservices-impacta-extract-balance.com
+192.168.49.2    microservices-impacta-investments.com
+192.168.49.2    microservices-impacta-credit-card.com
+192.168.49.2    microservices-impacta-client.com
+```
+
+
+## Carga de dados no microserviço de investimentos
+
+Utilize o arquivo tesouro-direto.json para adicionar investimentos no endpoint `http://microservices-impacta-investments.com/investments`.
 
 
 ## Keycloak para autenticação e acesso ao sistema bancário
@@ -84,3 +108,8 @@ curl -X 'GET' \
   -H 'accept: text/plain' \
   -H 'Authorization: Bearer '$access_token
 ```
+
+
+## Excluir o namespace e todas as dependências
+
+Rode o shell script `kubectl-delete-microservices.sh`.

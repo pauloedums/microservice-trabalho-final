@@ -74,9 +74,13 @@ metadata:
   name: postgres-db-lb
   namespace: microservices-impacta
 spec:
-  clusterIP: None
+  externalIPs:
+    - "10.0.2.25"
+  externalName: postgres-db-test.com
+  type: NodePort
   selector:
     app: postgres-db
   ports:
     - port: 5432
       targetPort: 5432
+      nodePort: 30100

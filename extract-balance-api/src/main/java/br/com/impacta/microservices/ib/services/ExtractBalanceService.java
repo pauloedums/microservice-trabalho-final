@@ -50,7 +50,7 @@ public class ExtractBalanceService {
 
     public Balance getBalance(){
         Balance balance = new Balance();
-        if(getExtract().getBalance().intValue() <= 0){
+        if(getExtract().getBalance().signum() <= 0){
             return new Balance();
         }
         balance.setBalance(getExtract().getBalance());

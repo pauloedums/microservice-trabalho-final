@@ -40,6 +40,13 @@ public class CreditCardResource {
     CreditCardService creditCardService;
     
     @GET
+    @Timeout(5000)
+    @CircuitBreaker(
+        requestVolumeThreshold = 8,
+        delay = 5000,
+        successThreshold = 4
+    )
+    @Retry(maxRetries = 5)
     @Fallback(fallbackMethod = "fallbackGetAll")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll(){
@@ -52,6 +59,13 @@ public class CreditCardResource {
 
 
     @GET
+    @Timeout(5000)
+    @CircuitBreaker(
+        requestVolumeThreshold = 8,
+        delay = 5000,
+        successThreshold = 4
+    )
+    @Retry(maxRetries = 5)
     @Path("/{cardNumber}")
     @Fallback(fallbackMethod = "fallbackGetCreditCardByNumber")
     @Produces(MediaType.APPLICATION_JSON)
@@ -65,6 +79,13 @@ public class CreditCardResource {
 
 
     @GET
+    @Timeout(5000)
+    @CircuitBreaker(
+        requestVolumeThreshold = 8,
+        delay = 5000,
+        successThreshold = 4
+    )
+    @Retry(maxRetries = 5)
     @Path("/{cardNumber}/purchases")
     @Fallback(fallbackMethod = "fallbackGetAllPurchases")
     @Produces(MediaType.APPLICATION_JSON)
@@ -78,12 +99,7 @@ public class CreditCardResource {
 
     @POST
     @Path("/create")
-    @Timeout(2000)
-    @CircuitBreaker(
-            requestVolumeThreshold = 8,
-            failureRatio = 0.5,
-            delay = 5000,
-            successThreshold = 4)
+    @Timeout(5000)
     @Retry(maxRetries = 5)
     @Fallback(fallbackMethod = "fallbackAddCreditCard")
     @Transactional
@@ -104,12 +120,7 @@ public class CreditCardResource {
 
     @PUT
     @Transactional
-    @Timeout(2000)
-    @CircuitBreaker(
-            requestVolumeThreshold = 8,
-            failureRatio = 0.5,
-            delay = 5000,
-            successThreshold = 4)
+    @Timeout(5000)
     @Retry(maxRetries = 5)
     @Fallback(fallbackMethod = "fallbackAddPurchase")
     @Path("/{cardNumber}/purchases")

@@ -27,10 +27,11 @@ public class BalanceResource {
     @GET
     @Fallback(fallbackMethod = "fallbackGetBalance")
     @Timeout(5000)
-    @CircuitBreaker(
-        requestVolumeThreshold=4,
-        failureRatio=0.5,
-        successThreshold=2
+    @CircuitBreaker(        
+        requestVolumeThreshold = 8,
+        failureRatio = 0.5,
+        delay = 5000,
+        successThreshold = 4
     )
     @Retry(maxRetries = 5)
     @Consumes(MediaType.APPLICATION_JSON)

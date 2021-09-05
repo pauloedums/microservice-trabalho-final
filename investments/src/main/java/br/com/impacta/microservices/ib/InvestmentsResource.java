@@ -29,7 +29,6 @@ import br.com.impacta.microservices.ib.model.Debit;
 import br.com.impacta.microservices.ib.model.Investment;
 import br.com.impacta.microservices.ib.model.TesouroDireto;
 import br.com.impacta.microservices.ib.services.InvestmentsService;
-import io.smallrye.config.SysPropConfigSource;
 
 @Path("/investments")
 public class InvestmentsResource {
@@ -47,6 +46,13 @@ public class InvestmentsResource {
     
     @GET
     @Path("/tesouro-direto")
+    @Timeout(5000)
+    @CircuitBreaker(
+        requestVolumeThreshold = 8,
+        delay = 5000,
+        successThreshold = 4
+    )
+    @Retry(maxRetries = 5)
     @Transactional
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -62,7 +68,13 @@ public class InvestmentsResource {
     @GET
     @Path("/list")
     @Transactional
-    @Timeout(200)
+    @Timeout(5000)
+    @CircuitBreaker(
+        requestVolumeThreshold = 8,
+        delay = 5000,
+        successThreshold = 4
+    )
+    @Retry(maxRetries = 5)
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getInvestments(){
@@ -77,8 +89,13 @@ public class InvestmentsResource {
     @Path("{code}")
     @Transactional
     @Fallback(fallbackMethod = "fallbackGetTesouroDireto")
-    @Timeout(2000)
-    @Retry(maxRetries = 1)
+    @Timeout(5000)
+    @CircuitBreaker(
+        requestVolumeThreshold = 8,
+        delay = 5000,
+        successThreshold = 4
+    )
+    @Retry(maxRetries = 5)
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getTesouroDireto(@PathParam("code") int code){
@@ -92,13 +109,8 @@ public class InvestmentsResource {
     @POST
     @Transactional
     @Fallback(fallbackMethod = "fallbackCreateTesouroDireto")
-    @Timeout(2000)
-    @CircuitBreaker(
-            requestVolumeThreshold = 4,
-            failureRatio = 0.5,
-            delay = 5000,
-            successThreshold = 2)
-    @Retry(maxRetries = 1)
+    @Timeout(5000)
+    @Retry(maxRetries = 5)
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createTesouroDireto(List<TesouroDireto> tesouroDiretos){
@@ -113,13 +125,8 @@ public class InvestmentsResource {
     @Transactional
     @Path("/add")
     @Fallback(fallbackMethod = "fallbackAddInvestment")
-    @Timeout(2000)
-    @CircuitBreaker(
-            requestVolumeThreshold = 4,
-            failureRatio = 0.5,
-            delay = 5000,
-            successThreshold = 2)
-    @Retry(maxRetries = 1)
+    @Timeout(5000)
+    @Retry(maxRetries = 5)
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addInvestment(Investment investment){

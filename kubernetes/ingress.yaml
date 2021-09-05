@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ms-impacta-debit-ingress
@@ -11,29 +11,49 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: ms-impacta-debit-svc
-          servicePort: 10030
+          service:
+            name: ms-impacta-debit-svc
+            port: 
+              number: 10030
+        pathType: Prefix
+        path: "/"
   - host: microservices-impacta-credit.com
     http:
       paths:
       - backend:
-          serviceName: ms-impacta-credit-svc
-          servicePort: 10020
+          service:
+            name: ms-impacta-credit-svc
+            port: 
+              number: 10020
+        pathType: Prefix
+        path: "/"
   - host: microservices-impacta-extract-balance.com
     http:
       paths:
       - backend:
-          serviceName: ms-impacta-extract-balance-svc
-          servicePort: 9000
+          service:
+            name: ms-impacta-extract-balance-svc
+            port: 
+              number: 9000
+        pathType: Prefix
+        path: "/"
   - host: microservices-impacta-credit-card.com
     http:
       paths:
       - backend:
-          serviceName: ms-impacta-credit-card-svc
-          servicePort: 9010
+          service:
+            name: ms-impacta-credit-card-svc
+            port: 
+              number: 9010
+        pathType: Prefix
+        path: "/"
   - host: microservices-impacta-investments.com
     http:
       paths:
       - backend:
-          serviceName: ms-impacta-investments-svc
-          servicePort: 9020
+          service:
+            name: ms-impacta-investments-svc
+            port: 
+              number: 9020
+        pathType: Prefix
+        path: "/"

@@ -32,12 +32,6 @@ public class CreditResource {
     @GET
     @Fallback(fallbackMethod = "fallbackGetAllCredits")
     @Timeout(5000)
-    @CircuitBreaker(        
-        requestVolumeThreshold = 8,
-        failureRatio = 0.5,
-        delay = 5000,
-        successThreshold = 4
-    )
     @Retry(maxRetries = 5)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllCredits(){

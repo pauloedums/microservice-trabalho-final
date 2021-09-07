@@ -10,6 +10,6 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 public class Credit extends PanacheEntity {
     
     public BigDecimal credit;
-
+    public int clientCpf;
 }
 

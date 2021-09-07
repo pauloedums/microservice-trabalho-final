@@ -11,13 +11,19 @@ import javax.transaction.Transactional;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import br.com.impacta.microservices.ib.interfaces.BalanceRestClient;
+import br.com.impacta.microservices.ib.interfaces.DebitRestClient;
 import br.com.impacta.microservices.ib.model.Client;
+import br.com.impacta.microservices.ib.model.Debit;
 import br.com.impacta.microservices.ib.model.Investment;
 import br.com.impacta.microservices.ib.model.TesouroDireto;
 
 @ApplicationScoped
 public class InvestmentsService {
 
+    @Inject
+    @RestClient
+    DebitRestClient debitRestClient;
+    
     @Inject
     @RestClient
     BalanceRestClient balanceRestClient;
@@ -42,7 +48,6 @@ public class InvestmentsService {
         return investmentsList;
     }
 
-
     @Transactional
     public TesouroDireto findInvestmentsByCode(int cd){
         return TesouroDireto.find("cd", cd).firstResult();
@@ -52,8 +57,11 @@ public class InvestmentsService {
         if(tesouroDireto.getMinInvstmtAmt().intValue() == 0){
             tesouroDireto.setMinInvstmtAmt(new BigDecimal(1));
         } 
-        BigDecimal reservedValue = new BigDecimal(investmentValue.intValue()).multiply(qty);
-        return tesouroDireto.getMinInvstmtAmt().multiply(reservedValue);
+        BigDecimal reservedValue = new BigDecimal(0).add(investmentValue.multiply(qty));
+
+        BigDecimal invstAmount = new BigDecimal(0).add(tesouroDireto.getMinInvstmtAmt().multiply(reservedValue));
+
+        return invstAmount;
     }
 
 
@@ -75,15 +83,31 @@ public class InvestmentsService {
 
         BigDecimal spendingLimit = balanceRestClient.get().getBalance();
 
-        // Valor do lote
         BigDecimal investmentValue = investment.getInvestmentValue();
+        
+        BigDecimal qty = new BigDecimal(investment.getQuantidade());
+        
+        Debit debit = new Debit();
+        BigDecimal lote = new BigDecimal(0)
+            .add(
+                lote(tesouroDireto,investmentValue, qty)
+            );
 
-        if (spendingLimit.subtract(investmentValue).intValue() > 0) {         
+        if (spendingLimit.subtract(investmentValue).signum() > 0 && spendingLimit.intValue() > lote.intValue()) {         
+
+            debit.setDebit(lote.negate());
+            debit.setClientCpf(investment.getClient().getCpf());
+            debitRestClient.addDebit(debit);
             
+            BigDecimal storeOldAmountOfInvestment = investment.getClient().getInvestimentValue();
+            
+            investment.getClient().setInvestimentValue(storeOldAmountOfInvestment.add(lote));
+
             List<Client> addClients = new ArrayList<Client>();
-            investment.getClient().setBalance(spendingLimit);
+
             addClients.add(investment.getClient());
-            tesouroDireto.setClients(addClients);
+            
+            tesouroDireto.getClients().add(investment.getClient());
             
             Client.persist(investment.getClient());        
 

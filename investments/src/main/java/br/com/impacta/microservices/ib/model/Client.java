@@ -3,6 +3,7 @@ package br.com.impacta.microservices.ib.model;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
@@ -13,9 +14,10 @@ public class Client extends PanacheEntity{
 
     public String firstName;
     public String lastName;
-    public Integer accountNumber;
-    public Integer cpf;
-    private BigDecimal balance;
+    public int accountNumber;
+    @JoinColumn(name="client_cpf")  
+    public int cpf;
+    private BigDecimal investimentValue;
     
     public String getFirstName() {
         return firstName;
@@ -41,13 +43,13 @@ public class Client extends PanacheEntity{
     public void setCpf(Integer cpf) {
         this.cpf = cpf;
     }
-    public BigDecimal getBalance() {
-        return balance;
+    public BigDecimal getInvestimentValue() {
+        return investimentValue;
     }
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
+    public void setInvestimentValue(BigDecimal investimentValue) {
+        this.investimentValue = investimentValue;
     }
-
+    
     
     
 }

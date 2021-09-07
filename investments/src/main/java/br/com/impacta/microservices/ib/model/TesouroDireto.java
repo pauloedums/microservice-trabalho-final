@@ -9,10 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 @Entity
+@Table(name = "tesouroDireto")
 public class TesouroDireto extends PanacheEntity {
 
     public int cd;

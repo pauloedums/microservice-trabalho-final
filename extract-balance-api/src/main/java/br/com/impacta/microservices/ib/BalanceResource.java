@@ -31,9 +31,6 @@ public class BalanceResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBalance(){
         Balance balance = extractService.getBalance();
-        if(balance.equals(new Balance())){
-            throw new EmptyStackException();
-        }
         return Response.ok(balance).build();
     }
 

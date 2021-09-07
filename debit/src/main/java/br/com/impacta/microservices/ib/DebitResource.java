@@ -31,11 +31,6 @@ public class DebitResource {
     @GET
     @Fallback(fallbackMethod = "fallbackGetAll")
     @Timeout(5000)
-    @CircuitBreaker(
-        requestVolumeThreshold = 8,
-        delay = 5000,
-        successThreshold = 4
-    )
     @Retry(maxRetries = 5)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll(){

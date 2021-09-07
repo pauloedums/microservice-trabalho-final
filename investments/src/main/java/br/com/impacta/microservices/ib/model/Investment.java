@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 @Entity
-@Table(name = "investment")
+@Table(name = "investments")
 public class Investment extends PanacheEntity {
     public int codeTesouroDireto;
     public BigDecimal investmentValue;

@@ -1,6 +1,5 @@
 package br.com.impacta.microservices.ib;
 
-import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 
@@ -16,7 +15,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
@@ -24,8 +22,6 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import br.com.impacta.microservices.ib.enums.FallbackMessages;
 import br.com.impacta.microservices.ib.interfaces.BalanceRestClient;
-import br.com.impacta.microservices.ib.interfaces.DebitRestClient;
-import br.com.impacta.microservices.ib.model.Debit;
 import br.com.impacta.microservices.ib.model.Investment;
 import br.com.impacta.microservices.ib.model.TesouroDireto;
 import br.com.impacta.microservices.ib.services.InvestmentsService;
@@ -38,21 +34,11 @@ public class InvestmentsResource {
 
     @Inject
     @RestClient
-    DebitRestClient debitRestClient;
-
-    @Inject
-    @RestClient
     BalanceRestClient balanceRestClient;
     
     @GET
     @Path("/tesouro-direto")
     @Timeout(5000)
-    @CircuitBreaker(
-        requestVolumeThreshold = 8,
-        delay = 5000,
-        successThreshold = 4
-    )
-    @Retry(maxRetries = 5)
     @Transactional
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -69,12 +55,6 @@ public class InvestmentsResource {
     @Path("/list")
     @Transactional
     @Timeout(5000)
-    @CircuitBreaker(
-        requestVolumeThreshold = 8,
-        delay = 5000,
-        successThreshold = 4
-    )
-    @Retry(maxRetries = 5)
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getInvestments(){
@@ -90,12 +70,6 @@ public class InvestmentsResource {
     @Transactional
     @Fallback(fallbackMethod = "fallbackGetTesouroDireto")
     @Timeout(5000)
-    @CircuitBreaker(
-        requestVolumeThreshold = 8,
-        delay = 5000,
-        successThreshold = 4
-    )
-    @Retry(maxRetries = 5)
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getTesouroDireto(@PathParam("code") int code){
@@ -130,25 +104,11 @@ public class InvestmentsResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addInvestment(Investment investment){
-        if(balanceRestClient.get().getBalance().intValue() <= 0){
+        if(balanceRestClient.get().getBalance().signum() <= 0){
             return Response.ok(FallbackMessages.ADD_INVESTMENT.getDescricao()).build();
         }
         else {
-            TesouroDireto tesouroDireto = investmentsService.findInvestmentsByCode(
-                investment.getCodeTesouroDireto());
-                
-            BigDecimal qty = new BigDecimal(investment.getQuantidade());
-            
-            BigDecimal investmentValue = investment.getInvestmentValue();
-            
-            Debit debit = new Debit();
-            
-            debit.setDebit(
-                investmentsService.lote(
-                    tesouroDireto,investmentValue, qty).negate());
-            debitRestClient.addDebit(debit);
             investmentsService.addInvestmentToClient(investment);
-            Investment.persist(investment);
             return Response.ok(investment).build();       
         }
     }

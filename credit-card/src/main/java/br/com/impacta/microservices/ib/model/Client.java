@@ -1,14 +1,6 @@
 package br.com.impacta.microservices.ib.model;
 
-import java.util.List;
-
-import javax.json.bind.annotation.JsonbTransient;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
@@ -18,11 +10,6 @@ public class Client extends PanacheEntity{
     public String firstName;
     public String lastName;
     private Integer cpf;
-
-
-	@OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JsonbTransient
-    public List<CreditCard> creditCards;
         
     public String getFirstName() {
         return firstName;

@@ -42,11 +42,6 @@ public class CreditCardResource {
     
     @GET
     @Timeout(5000)
-    @CircuitBreaker(
-        requestVolumeThreshold = 8,
-        delay = 5000,
-        successThreshold = 4
-    )
     @Retry(maxRetries = 5)
     @Fallback(fallbackMethod = "fallbackGetAll")
     @Produces(MediaType.APPLICATION_JSON)
@@ -61,11 +56,6 @@ public class CreditCardResource {
 
     @GET
     @Timeout(5000)
-    @CircuitBreaker(
-        requestVolumeThreshold = 8,
-        delay = 5000,
-        successThreshold = 4
-    )
     @Retry(maxRetries = 5)
     @Path("/{cardNumber}")
     @Fallback(fallbackMethod = "fallbackGetCreditCardByNumber")
@@ -81,11 +71,6 @@ public class CreditCardResource {
 
     @GET
     @Timeout(5000)
-    @CircuitBreaker(
-        requestVolumeThreshold = 8,
-        delay = 5000,
-        successThreshold = 4
-    )
     @Retry(maxRetries = 5)
     @Path("/{cardNumber}/purchases")
     @Fallback(fallbackMethod = "fallbackGetAllPurchases")
@@ -117,18 +102,19 @@ public class CreditCardResource {
     @Path("/create")
     @Transactional
     @Timeout(5000)
+    @Fallback(fallbackMethod = "fallbackAddCreditCard")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addCreditCard(CreditCard creditCard){
         if(CreditCard.find("cardNumber", creditCard.getCardNumber()).firstResult() != null) { 
-            System.out.println("entrou no if pq o cartão já existe");
+            Response.serverError().build();
             throw new EmptyStackException();
         }
-        System.out.println("entrou no else");
         creditCardService.addCreditCard(creditCard);
         for(Purchase purchase:creditCard.getPurchases()) {
             Debit debit = new Debit();
             debit.setDebit(purchase.getValue().negate());
+            debit.setClientCpf(creditCard.getClient().getCpf());
             debitRestClient.addDebit(debit);
         }
         return Response.created(URI.create("/create" + creditCard.id)).build();
@@ -148,6 +134,7 @@ public class CreditCardResource {
         // ADD to debit
         Debit debit = new Debit();
         debit.setDebit(purchase.getValue().negate());
+        debit.setClientCpf(card.getClient().getCpf());
         debitRestClient.addDebit(debit);
 
         // ADD new purchase to CreditCard

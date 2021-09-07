@@ -17,7 +17,6 @@ public class CreditCardService {
     @Transactional
     public CreditCard addCreditCard(CreditCard creditCard){
         CreditCard.persist(creditCard);
-        System.out.println("cartão foi persistido: " +creditCard.isPersistent());
         return creditCard;
     }
 
@@ -35,7 +34,6 @@ public class CreditCardService {
 
     @Transactional
     public Client findClientByCpf(int cpf){
-        System.out.println(Client.find("cpf", cpf).firstResult());
         return Client.find("cpf", cpf).firstResult();
     }
 

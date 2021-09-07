@@ -32,3 +32,4 @@ nb-configuration.xml
 .env
 
 docker-images.sh
+docker-containers.sh

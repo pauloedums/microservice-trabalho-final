@@ -24,6 +24,7 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import br.com.impacta.microservices.ib.enums.FallbackCreditCard;
 import br.com.impacta.microservices.ib.interfaces.DebitRestClient;
+import br.com.impacta.microservices.ib.model.Client;
 import br.com.impacta.microservices.ib.model.CreditCard;
 import br.com.impacta.microservices.ib.model.Debit;
 import br.com.impacta.microservices.ib.model.Purchase;
@@ -97,25 +98,40 @@ public class CreditCardResource {
         return Response.ok(purchaseList).build();
     }
 
+    @GET
+    @Timeout(5000)
+    @Transactional
+    @Retry(maxRetries = 5)
+    @Path("/client/{cpf}")
+    @Fallback(fallbackMethod = "fallbackGetAllPurchases")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getClient(@PathParam("cpf") int cpf){
+        Client client = creditCardService.findClientByCpf(cpf);
+        if(client.equals(new Client())){
+            throw new EmptyStackException();
+        }
+        return Response.ok(client).build();
+    }
+
     @POST
     @Path("/create")
-    @Timeout(5000)
-    @Retry(maxRetries = 5)
-    @Fallback(fallbackMethod = "fallbackAddCreditCard")
     @Transactional
+    @Timeout(5000)
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addCreditCard(CreditCard creditCard){
-        creditCardService.addCreditCard(creditCard);
-        if(creditCard.isPersistent()) { 
-            for(Purchase purchase:creditCard.getPurchases()) {
-                Debit debit = new Debit();
-                debit.setDebit(purchase.getValue().negate());
-                debitRestClient.addDebit(debit);
-            }
-            return Response.created(URI.create("/create" + creditCard.id)).build();
+        if(CreditCard.find("cardNumber", creditCard.getCardNumber()).firstResult() != null) { 
+            System.out.println("entrou no if pq o cartão já existe");
+            throw new EmptyStackException();
         }
-        return Response.status(Response.Status.BAD_REQUEST).build();
+        System.out.println("entrou no else");
+        creditCardService.addCreditCard(creditCard);
+        for(Purchase purchase:creditCard.getPurchases()) {
+            Debit debit = new Debit();
+            debit.setDebit(purchase.getValue().negate());
+            debitRestClient.addDebit(debit);
+        }
+        return Response.created(URI.create("/create" + creditCard.id)).build();
     }
 
     @PUT

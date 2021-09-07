@@ -7,6 +7,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
 
 import br.com.impacta.microservices.ib.model.Balance;
+import br.com.impacta.microservices.ib.model.Client;
 import br.com.impacta.microservices.ib.model.CreditCard;
 import br.com.impacta.microservices.ib.model.Purchase;
 
@@ -16,6 +17,7 @@ public class CreditCardService {
     @Transactional
     public CreditCard addCreditCard(CreditCard creditCard){
         CreditCard.persist(creditCard);
+        System.out.println("cartão foi persistido: " +creditCard.isPersistent());
         return creditCard;
     }
 
@@ -28,6 +30,13 @@ public class CreditCardService {
     @Transactional
     public CreditCard findCreditCardById(int cardNumber){
         return CreditCard.find("cardNumber", cardNumber).firstResult();
+    }
+
+
+    @Transactional
+    public Client findClientByCpf(int cpf){
+        System.out.println(Client.find("cpf", cpf).firstResult());
+        return Client.find("cpf", cpf).firstResult();
     }
 
     @Transactional

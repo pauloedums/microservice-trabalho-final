@@ -11,8 +11,7 @@ public class Purchase extends PanacheEntity {
     
     public String purchaseName;
     public BigDecimal value;
-
-    
+        
     public String getPurchaseName() {
         return purchaseName;
     }

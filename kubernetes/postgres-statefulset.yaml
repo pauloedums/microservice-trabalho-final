@@ -10,7 +10,7 @@ data:
   POSTGRES_DB: bank_accounts
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
-  PGDATA: /data/pgdata
+  PGDATA: /data
 ---
 # PostgreSQL StatefulSet - ConfigMap
 apiVersion: apps/v1
@@ -41,10 +41,10 @@ spec:
                 fieldPath: status.podIP
           volumeMounts:
           - name: conf
-            mountPath: /var/lib/postgresql/conf
+            mountPath: /conf
             readOnly: false
           - name: data
-            mountPath: /var/lib/postgresql/data
+            mountPath: /data
             readOnly: false
 
           # Config from ConfigMap
@@ -61,7 +61,7 @@ spec:
     - metadata:
         name: data
       spec:
-        accessModes: ["ReadWriteMany"]
+        accessModes: ["ReadWriteOnce"]
         storageClassName: "standard"
         resources:
           requests:
@@ -74,13 +74,9 @@ metadata:
   name: postgres-db-lb
   namespace: microservices-impacta
 spec:
-  externalIPs:
-    - "10.0.2.25"
-  externalName: postgres-db-test.com
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: postgres-db
   ports:
     - port: 5432
       targetPort: 5432
-      nodePort: 30100

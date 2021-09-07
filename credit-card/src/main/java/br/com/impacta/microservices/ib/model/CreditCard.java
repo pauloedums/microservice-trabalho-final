@@ -3,27 +3,46 @@ package br.com.impacta.microservices.ib.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.annotation.Generated;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 @Entity
+@Table(name = "credit_card")
 public class CreditCard extends PanacheEntity {
-   
+    
     public String cardName;
 	public String clientName;
     public BigDecimal cardBalance;
 	public int cardNumber;
 	public BigDecimal spendingLimit;
     
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = Purchase.class,fetch = FetchType.EAGER)
-    @JoinColumn(name = "purchases")
+	@OneToMany(cascade = CascadeType.ALL,targetEntity = Purchase.class,orphanRemoval = true, fetch = FetchType.EAGER)
+    //@JsonbTransient
     public List<Purchase> purchases;
-    
+
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Client.class, fetch = FetchType.EAGER)
+    //@JoinColumn(name = "client", referencedColumnName = "id")
+    //Evita loop infinito na serializacao. SEMPRE colocar em mapeamentos bidirecionais
+    public Client client;
+
+    public Client getClient() {
+        return client;
+    }
+    public void setClient(Client client) {
+        this.client = client;
+    }
     public String getCardName() {
         return cardName;
     }

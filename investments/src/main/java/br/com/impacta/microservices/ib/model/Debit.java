@@ -6,23 +6,21 @@ public class Debit{
     
     public BigDecimal debit;
 
-    public int clientCpf;
-
-
-    public int getClientCpf() {
-        return clientCpf;
-    }
-
-    public void setClientCpf(int clientCpf) {
-        this.clientCpf = clientCpf;
-    }
-
+    public Integer clientCpf;
     public BigDecimal getDebit() {
         return debit;
     }
 
     public void setDebit(BigDecimal debit) {
         this.debit = debit;
+    }
+
+    public Integer getClientCpf() {
+        return clientCpf;
+    }
+
+    public void setClientCpf(Integer clientCpf) {
+        this.clientCpf = clientCpf;
     }
 
     

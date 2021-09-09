@@ -24,8 +24,7 @@ public class TesouroDireto extends PanacheEntity {
     public BigDecimal untrInvstmtVal;
     public String rcvgIncm;
 
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = Client.class,fetch = FetchType.EAGER)
-    @JoinColumn(name = "clients")
+	@OneToMany(cascade = CascadeType.ALL,targetEntity = Client.class,fetch = FetchType.EAGER)
     public List<Client> clients;
     
     public int getCd() {

@@ -1,6 +1,7 @@
 # Deletar namespace se houver
 kubectl delete ns microservices-impacta
 
+
 # Adicionar deploys para o kubernetes
 kubectl apply -k kubernetes/
 

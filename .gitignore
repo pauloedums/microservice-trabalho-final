@@ -33,3 +33,4 @@ nb-configuration.xml
 
 docker-images.sh
 docker-containers.sh
+microservices.code-workspace

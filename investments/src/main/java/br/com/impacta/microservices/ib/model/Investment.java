@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -17,8 +17,7 @@ public class Investment extends PanacheEntity {
     public BigDecimal investmentValue;
     public int quantidade;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="client_id")    
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Client.class, fetch = FetchType.EAGER)
     public Client client;
     
     public int getCodeTesouroDireto() {

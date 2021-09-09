@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,6 +31,7 @@ public class TesouroDireto extends PanacheEntity {
     public String rcvgIncm;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, targetEntity = Client.class)
+    @JsonbTransient
     private Set<Client> clients = new HashSet<Client>(0);
 
     public int getCd() {

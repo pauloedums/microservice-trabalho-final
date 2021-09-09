@@ -5,45 +5,66 @@ import java.math.BigDecimal;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 @Entity
-@Table(name = "investments")
-public class Investment extends PanacheEntity {
-    public int codeTesouroDireto;
+public class Investment extends PanacheEntityBase {
+
+    @Id
+    @GeneratedValue
+    public Integer id;
+
+    public Integer codeTesouroDireto;
     public BigDecimal investmentValue;
-    public int quantidade;
+    public Integer quantidade;
 
     @ManyToOne(cascade = CascadeType.ALL, targetEntity = Client.class, fetch = FetchType.EAGER)
     public Client client;
-    
-    public int getCodeTesouroDireto() {
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getCodeTesouroDireto() {
         return codeTesouroDireto;
     }
-    public void setCodeTesouroDireto(int codeTesouroDireto) {
+
+    public void setCodeTesouroDireto(Integer codeTesouroDireto) {
         this.codeTesouroDireto = codeTesouroDireto;
     }
+
     public BigDecimal getInvestmentValue() {
         return investmentValue;
     }
+
     public void setInvestmentValue(BigDecimal investmentValue) {
         this.investmentValue = investmentValue;
     }
-    public int getQuantidade() {
+
+    public Integer getQuantidade() {
         return quantidade;
     }
-    public void setQuantidade(int quantidade) {
+
+    public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
+
     public Client getClient() {
         return client;
     }
+
     public void setClient(Client client) {
         this.client = client;
     }
-
+    
+   
     
 }

@@ -1,8 +1,10 @@
 package br.com.impacta.microservices.ib.services;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -79,6 +81,7 @@ public class InvestmentsService {
     public TesouroDireto addInvestmentToClient(
         Investment investment) 
     {
+        
         TesouroDireto tesouroDireto = findInvestmentsByCode(investment.getCodeTesouroDireto());
 
         BigDecimal spendingLimit = balanceRestClient.get().getBalance();
@@ -103,18 +106,17 @@ public class InvestmentsService {
             
             investment.getClient().setInvestimentValue(storeOldAmountOfInvestment.add(lote));
 
-            List<Client> addClients = new ArrayList<Client>();
+            Set<Client> clients = new HashSet<Client>();
 
-            addClients.add(investment.getClient());
+            clients.add(investment.getClient());
             
-            tesouroDireto.getClients().add(investment.getClient());
-            
-            Client.persist(investment.getClient());        
+            tesouroDireto.setClients(clients);
 
-            TesouroDireto.persist(tesouroDireto);
+            Client.persist(investment.getClient());  
 
             Investment.persist(investment);
-
+            
+            TesouroDireto.persist(tesouroDireto);
             return tesouroDireto;
             
         } else {

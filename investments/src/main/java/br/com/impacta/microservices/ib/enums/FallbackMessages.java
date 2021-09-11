@@ -14,7 +14,7 @@ public enum FallbackMessages {
         this.descricao = descricao;
     }
 
-    public String getDescricao() {
+    public String getDescription() {
         return descricao;
     }
 }

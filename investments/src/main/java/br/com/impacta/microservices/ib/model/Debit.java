@@ -6,7 +6,7 @@ public class Debit{
     
     public BigDecimal debit;
 
-    public Integer clientCpf;
+    public int clientCpf;
     public BigDecimal getDebit() {
         return debit;
     }
@@ -15,11 +15,11 @@ public class Debit{
         this.debit = debit;
     }
 
-    public Integer getClientCpf() {
+    public int getClientCpf() {
         return clientCpf;
     }
 
-    public void setClientCpf(Integer clientCpf) {
+    public void setClientCpf(int clientCpf) {
         this.clientCpf = clientCpf;
     }
 

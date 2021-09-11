@@ -9,7 +9,7 @@ public class Client extends PanacheEntity{
 
     public String firstName;
     public String lastName;
-    private Integer cpf;
+    private int cpf;
         
     public String getFirstName() {
         return firstName;
@@ -23,10 +23,10 @@ public class Client extends PanacheEntity{
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    public Integer getCpf() {
+    public int getCpf() {
         return cpf;
     }
-    public void setCpf(Integer cpf) {
+    public void setCpf(int cpf) {
         this.cpf = cpf;
     }   
     

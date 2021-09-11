@@ -44,7 +44,7 @@ public class InvestmentsResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getAllTesouroDireto(){
         if(TesouroDireto.findAll().count() <= 0){
-            return Response.ok(FallbackMessages.GET_ALL_TESOURO_DIRETO.getDescricao()).build();
+            return Response.ok(FallbackMessages.GET_ALL_TESOURO_DIRETO.getDescription()).build();
         }
         List<TesouroDireto> tesouroDiretos = investmentsService.listTesouroDireto();
         return Response.ok(tesouroDiretos).build();
@@ -59,7 +59,7 @@ public class InvestmentsResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getInvestments(){
         if(Investment.findAll().list().isEmpty()){
-           return Response.ok(FallbackMessages.GET_INVESTIMENTS.getDescricao()).build();
+           return Response.ok(FallbackMessages.GET_INVESTIMENTS.getDescription()).build();
         }
         List<Investment> investments = investmentsService.listInvestments();
         return Response.ok(investments).build();
@@ -89,7 +89,7 @@ public class InvestmentsResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createTesouroDireto(List<TesouroDireto> tesouroDiretos){
         if(tesouroDiretos.get(0).cd == 0){
-            return Response.ok(FallbackMessages.CREATE_TESOURO_DIRETO.getDescricao()).build();
+            return Response.ok(FallbackMessages.CREATE_TESOURO_DIRETO.getDescription()).build();
         }
         investmentsService.createListTesouroDireto(tesouroDiretos);
         return Response.created(URI.create("tesouroDiretos")).build();
@@ -100,28 +100,31 @@ public class InvestmentsResource {
     @Path("/add")
     @Fallback(fallbackMethod = "fallbackAddInvestment")
     @Timeout(5000)
-    @Retry(maxRetries = 5)
+    //@Retry(maxRetries = 5)
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addInvestment(Investment investment){
+        System.out.println("ADICIONANDO INVESTIMENTO");
         if(balanceRestClient.get().getBalance().signum() <= 0){
-            return Response.ok(FallbackMessages.ADD_INVESTMENT.getDescricao()).build();
+            System.out.println("ENTROU NO IF");
+            return Response.ok(FallbackMessages.ADD_INVESTMENT.getDescription()).build();
         }
         else {
+            System.out.println("ENTROU NO ELSE");
             investmentsService.addInvestmentToClient(investment);
             return Response.ok(investment).build();       
         }
     }
 
     private Response fallbackAddInvestment(Investment investment){
-        return Response.ok(FallbackMessages.ADD_INVESTMENT.getDescricao()).build();
+        return Response.ok(FallbackMessages.ADD_INVESTMENT.getDescription()).build();
     }
 
     private Response fallbackGetTesouroDireto(int code){
-        return Response.ok(FallbackMessages.GET_TESOURO_DIRETO.getDescricao()).build();
+        return Response.ok(FallbackMessages.GET_TESOURO_DIRETO.getDescription()).build();
     }
 
     private Response fallbackCreateTesouroDireto(List<TesouroDireto> tesouroDiretos){
-        return Response.ok(FallbackMessages.CREATE_TESOURO_DIRETO.getDescricao()).build();
+        return Response.ok(FallbackMessages.CREATE_TESOURO_DIRETO.getDescription()).build();
     }
 }

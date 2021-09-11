@@ -4,10 +4,8 @@ import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
-@Entity
-public class Purchase extends PanacheEntity {
+public class Purchase {
     
     public String purchaseName;
     public BigDecimal value;

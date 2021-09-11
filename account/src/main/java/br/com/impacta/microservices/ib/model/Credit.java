@@ -1,18 +1,17 @@
 package br.com.impacta.microservices.ib.model;
 
 import java.math.BigDecimal;
-
-public class Debit{
+public class Credit {
     
-    public BigDecimal debit;
+    public BigDecimal credit;
 
     public int clientCpf;
-    public BigDecimal getDebit() {
-        return debit;
+    public BigDecimal getCredit() {
+        return credit;
     }
 
-    public void setDebit(BigDecimal debit) {
-        this.debit = debit;
+    public void setCredit(BigDecimal credit) {
+        this.credit = credit;
     }
 
     public int getClientCpf() {
@@ -22,6 +21,4 @@ public class Debit{
     public void setClientCpf(int clientCpf) {
         this.clientCpf = clientCpf;
     }
-
-    
 }

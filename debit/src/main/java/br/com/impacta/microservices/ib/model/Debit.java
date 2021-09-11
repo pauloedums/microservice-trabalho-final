@@ -10,5 +10,5 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 public class Debit extends PanacheEntity {
     
     public BigDecimal debit;
-    public Integer clientCpf;
+    public int clientCpf;
 }

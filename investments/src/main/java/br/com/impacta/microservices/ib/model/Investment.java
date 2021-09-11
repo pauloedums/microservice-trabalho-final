@@ -16,28 +16,27 @@ public class Investment extends PanacheEntityBase {
 
     @Id
     @GeneratedValue
-    public Integer id;
+    public int id;
 
-    public Integer codeTesouroDireto;
+    public int codeTesouroDireto;
     public BigDecimal investmentValue;
-    public Integer quantidade;
+    public int quantidade;
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = InvestimentClient.class, fetch = FetchType.EAGER)
+    public InvestimentClient client;
 
-    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Client.class, fetch = FetchType.EAGER)
-    public Client client;
-
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getCodeTesouroDireto() {
+    public int getCodeTesouroDireto() {
         return codeTesouroDireto;
     }
 
-    public void setCodeTesouroDireto(Integer codeTesouroDireto) {
+    public void setCodeTesouroDireto(int codeTesouroDireto) {
         this.codeTesouroDireto = codeTesouroDireto;
     }
 
@@ -49,19 +48,19 @@ public class Investment extends PanacheEntityBase {
         this.investmentValue = investmentValue;
     }
 
-    public Integer getQuantidade() {
+    public int getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(Integer quantidade) {
+    public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
 
-    public Client getClient() {
+    public InvestimentClient getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(InvestimentClient client) {
         this.client = client;
     }
     

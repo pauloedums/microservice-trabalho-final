@@ -5,11 +5,14 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
@@ -22,8 +25,10 @@ public class TesouroDireto extends PanacheEntity {
     public BigDecimal minInvstmtAmt;
     public BigDecimal untrInvstmtVal;
     public String rcvgIncm;
+
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, targetEntity = InvestimentClient.class)
-    @JsonbTransient
+    
     private Set<InvestimentClient> clients = new HashSet<InvestimentClient>(0);
 
     public int getCd() {

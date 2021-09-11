@@ -1,7 +1,6 @@
 package br.com.impacta.microservices.ib.services;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,7 +13,7 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import br.com.impacta.microservices.ib.interfaces.BalanceRestClient;
 import br.com.impacta.microservices.ib.interfaces.DebitRestClient;
-import br.com.impacta.microservices.ib.model.Client;
+import br.com.impacta.microservices.ib.model.InvestimentClient;
 import br.com.impacta.microservices.ib.model.Debit;
 import br.com.impacta.microservices.ib.model.Investment;
 import br.com.impacta.microservices.ib.model.TesouroDireto;
@@ -95,9 +94,9 @@ public class InvestmentsService {
             .add(
                 lote(tesouroDireto,investmentValue, qty)
             );
-
+        System.out.println("COMEÇOU A ADICIONAR OS VALORES");
         if (spendingLimit.subtract(investmentValue).signum() > 0 && spendingLimit.intValue() > lote.intValue()) {         
-
+            System.out.println("ENTROU NO IF");
             debit.setDebit(lote.negate());
             debit.setClientCpf(investment.getClient().getCpf());
             debitRestClient.addDebit(debit);
@@ -106,14 +105,22 @@ public class InvestmentsService {
             
             investment.getClient().setInvestimentValue(storeOldAmountOfInvestment.add(lote));
 
-            Set<Client> clients = new HashSet<Client>();
+            System.out.println("ENTROU NO IF");
 
+            System.out.println("PEGA O CLIENTE");
+
+            System.out.println("CPF DO CLIENTE: " + investment.getClient().getCpf());
+            Set<InvestimentClient> clients = new HashSet<InvestimentClient>();
+            
             clients.add(investment.getClient());
             
             tesouroDireto.setClients(clients);
 
-            Client.persist(investment.getClient());  
-
+            InvestimentClient.persist(investment.getClient());  
+            System.out.println("##############################");
+            System.out.println("CPF DO CLIENTE: ");
+            System.out.println(investment.getClient().getCpf());
+            System.out.println("##############################");
             Investment.persist(investment);
             
             TesouroDireto.persist(tesouroDireto);

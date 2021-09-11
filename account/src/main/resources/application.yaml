@@ -1,0 +1,56 @@
+quarkus:
+  swagger-ui:
+    theme: material
+    always-include: true
+
+  live-reload:
+    instrumentation: true
+
+  oidc:
+    auth-server-url: http://localhost:10520/auth/realms/Quarkus
+    client-id: customer-app
+    credentials:
+      secret: 5ffb3490-4d7b-42ed-8cac-e6774550bc92
+  datasource:
+    db-kind: postgresql
+    username: postgres
+    password: postgres
+    jdbc:
+      url: jdbc:postgresql://localhost:5432/bank_accounts
+  hibernate-orm:
+    database:
+      generation: 
+        ~: drop-and-create
+
+# Fault Tolerance Test
+  isTestingFault: false
+# Retry
+  isRetry: false
+# Timeout
+  isFallBack: false
+  container-image:
+    push: true
+    group: pauloedums
+    name: microservices-impacta-account
+    tag: latest
+    registry: docker.io
+br:
+  com:
+    impacta:
+      microservices:
+        ib:
+          interfaces:  
+            CreditRestClient/mp-rest/url: http://microservices-impacta-credit.com
+            CreditRestClient/mp-rest/scope: javax.inject.Singleton
+            DebitRestClient/mp-rest/url: http://microservices-impacta-debit.com
+            DebitRestClient/mp-rest/scope: javax.inject.Singleton
+            BalanceRestClient/mp-rest/url: http://microservices-impacta-extract-balance.com
+            BalanceRestClient/mp-rest/scope: javax.inject.Singleton
+            InvestmentsRestClient/mp-rest/url: http://localhost:9020
+            InvestmentsRestClient/mp-rest/scope: javax.inject.Singleton
+            CreditCardRestClient/mp-rest/url: http://microservices-impacta-credit-card.com
+            CreditCardRestClient/mp-rest/scope: javax.inject.Singleton
+
+# variables
+app:
+  token-url: http://localhost:10520/auth/realms/quarkus/protocol/openid-connect/token

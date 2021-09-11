@@ -1,117 +1,78 @@
 package br.com.impacta.microservices.ib.model;
 
-import javax.persistence.Column;
+import javax.annotation.security.RolesAllowed;
+import javax.json.bind.annotation.JsonbTransient;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 @Entity
-@Table(name = "clients")
 public class Client extends PanacheEntityBase  {
-    
+
     @Id
+    @GeneratedValue
     @JsonIgnore
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
-
-    @Column(name="first_name")
-    private String firstName;
     
-    @Column(name="last_name")
-    private String lastName;
-    
-    @Column(name="account_number")
-    private Integer accountNumber;
+    public String firstName;
+    public String lastName;
+    public int accountNumber;
+    public int cpf;
 
-    @Column(name="cpf")
-    private Integer cpf;
-
-    @Column(name="balance")
-    private Balance balance;
-
+    @JsonFilter(value = "balance")
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = Balance.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_balance")
+    @JsonbTransient
+    public Balance balance;
 
     public String getFirstName() {
         return firstName;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    public Integer getAccountNumber() {
-        return accountNumber;
-    }
-    public void setAccountNumber(Integer accountNumber) {
-        this.accountNumber = accountNumber;
-    }
+
     public String getLastName() {
         return lastName;
     }
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public int getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(int accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public int getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(int cpf) {
+        this.cpf = cpf;
     }
 
     public Balance getBalance() {
         return balance;
     }
+
     public void setBalance(Balance balance) {
         this.balance = balance;
     }
 
-    public Integer getCpf() {
-        return cpf;
-    }
-    public void setCpf(Integer cpf) {
-        this.cpf = cpf;
-    }
-    public static Client findByAccount(Client client){
-        client = Client.find("accountNumber", client.getAccountNumber()).firstResult();
-        return client;
-    }
-
-    public static Client findByCpf(Client client){
-        client = Client.find("cpf", client.getCpf()).firstResult();
-        return client;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((accountNumber == null) ? 0 : accountNumber.hashCode());
-        result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-        result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-        return result;
-    }
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Client other = (Client) obj;
-        if (accountNumber == null) {
-            if (other.accountNumber != null)
-                return false;
-        } else if (!accountNumber.equals(other.accountNumber))
-            return false;
-        if (firstName == null) {
-            if (other.firstName != null)
-                return false;
-        } else if (!firstName.equals(other.firstName))
-            return false;
-        if (lastName == null) {
-            if (other.lastName != null)
-                return false;
-        } else if (!lastName.equals(other.lastName))
-            return false;
-        return true;
-    }    
-    
 }

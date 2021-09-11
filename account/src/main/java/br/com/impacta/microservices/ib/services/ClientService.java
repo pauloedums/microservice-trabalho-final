@@ -1,10 +1,16 @@
 package br.com.impacta.microservices.ib.services;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import br.com.impacta.microservices.ib.interfaces.BalanceRestClient;
 import br.com.impacta.microservices.ib.model.Client;
+import br.com.impacta.microservices.ib.model.InvestimentClient;
+import br.com.impacta.microservices.ib.model.Investment;
+import br.com.impacta.microservices.ib.model.TesouroDireto;
 
 @ApplicationScoped
 public class ClientService {
@@ -17,14 +23,12 @@ public class ClientService {
 
     @Transactional
     public Client getClientById(Client client){
-        client = Client.findById(client.id);
-        return client;
+        return Client.findById(client.id);
     }
 
     @Transactional
     public List<Client> listClient(){
-        List<Client> clientList = Client.listAll();
-        return clientList;
+        return Client.listAll();
     }
     
 
@@ -48,13 +52,31 @@ public class ClientService {
 
     @Transactional
     public Client getClientByAccount(Client client){
-        client = Client.findByAccount(client);
-        return client;
+        return Client.find("accountNumber", client.getAccountNumber()).firstResult();
     }
 
     @Transactional
-    public Client getClientByCpf(Client client){
-        client = Client.findByCpf(client);
-        return client;
+    public Client getClientByCpf(int cpf){
+        return Client.find("cpf", cpf).firstResult();
     }
+
+    @Transactional
+    public InvestimentClient getInvestmentClientByCpf(int cpf){
+        return InvestimentClient.find("cpf", cpf).firstResult();
+    }
+
+
+    @Transactional
+    public List<Investment> getInvestmentByCpf(int cpf){
+        InvestimentClient client = getInvestmentClientByCpf(cpf);
+        List<Investment> investments = Investment.find("client", client).list();
+        System.out.println(investments.size());
+        return investments;
+    }
+
+    @Transactional
+    public TesouroDireto getTesouroByCode(int cd){
+        return TesouroDireto.find("cd", cd).firstResult();
+    }
+
 }

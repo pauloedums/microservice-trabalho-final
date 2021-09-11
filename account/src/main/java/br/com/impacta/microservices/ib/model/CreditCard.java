@@ -3,16 +3,10 @@ package br.com.impacta.microservices.ib.model;
 import java.math.BigDecimal;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
-
-@Entity
-public class CreditCard extends PanacheEntity {
+public class CreditCard{
    
     public String cardName;
 	public String clientName;
@@ -20,7 +14,7 @@ public class CreditCard extends PanacheEntity {
 	public int cardNumber;
 	public BigDecimal spendingLimit;
     
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = Purchase.class,fetch = FetchType.EAGER)
+    @OneToMany
     @JoinColumn(name = "purchases")
     public List<Purchase> purchases;
     

@@ -118,4 +118,17 @@ public class InvestmentsService {
             return new TesouroDireto();
         }
 	}
+
+
+    @Transactional
+    public InvestimentClient getInvestmentClientByCpf(int cpf){
+        return InvestimentClient.find("cpf", cpf).firstResult();
+    }
+
+    @Transactional
+    public List<Investment> getInvestmentByCpf(int cpf){
+        InvestimentClient client = getInvestmentClientByCpf(cpf);
+        List<Investment> investments = Investment.find("client", client).list();
+        return investments;
+    }
 }

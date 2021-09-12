@@ -46,7 +46,7 @@ br:
             DebitRestClient/mp-rest/scope: javax.inject.Singleton
             BalanceRestClient/mp-rest/url: http://microservices-impacta-extract-balance.com
             BalanceRestClient/mp-rest/scope: javax.inject.Singleton
-            InvestmentsRestClient/mp-rest/url: http://localhost:9020
+            InvestmentsRestClient/mp-rest/url: http://microservices-impacta-investments.com
             InvestmentsRestClient/mp-rest/scope: javax.inject.Singleton
             CreditCardRestClient/mp-rest/url: http://microservices-impacta-credit-card.com
             CreditCardRestClient/mp-rest/scope: javax.inject.Singleton

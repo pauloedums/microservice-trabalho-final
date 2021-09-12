@@ -1,19 +1,22 @@
 package br.com.impacta.microservices.ib.services;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
-import br.com.impacta.microservices.ib.interfaces.BalanceRestClient;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+
+import br.com.impacta.microservices.ib.interfaces.InvestmentsRestClient;
 import br.com.impacta.microservices.ib.model.Client;
-import br.com.impacta.microservices.ib.model.InvestimentClient;
-import br.com.impacta.microservices.ib.model.Investment;
 import br.com.impacta.microservices.ib.model.TesouroDireto;
 
 @ApplicationScoped
 public class ClientService {
+
+    @Inject
+    @RestClient
+    InvestmentsRestClient investmentsRestClient;
     
     @Transactional
     public Client addClient(Client client){
@@ -61,21 +64,8 @@ public class ClientService {
     }
 
     @Transactional
-    public InvestimentClient getInvestmentClientByCpf(int cpf){
-        return InvestimentClient.find("cpf", cpf).firstResult();
-    }
-
-
-    @Transactional
-    public List<Investment> getInvestmentByCpf(int cpf){
-        InvestimentClient client = getInvestmentClientByCpf(cpf);
-        List<Investment> investments = Investment.find("client", client).list();
-        return investments;
-    }
-
-    @Transactional
     public TesouroDireto getTesouroByCode(int cd){
-        return TesouroDireto.find("cd", cd).firstResult();
+        return investmentsRestClient.getTesouroDireto(cd);
     }
 
 }

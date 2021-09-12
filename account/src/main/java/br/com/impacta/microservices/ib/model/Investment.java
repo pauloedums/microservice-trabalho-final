@@ -3,7 +3,6 @@ package br.com.impacta.microservices.ib.model;
 import java.math.BigDecimal;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 
-@Entity
 public class Investment extends PanacheEntity {
 
     public int codeTesouroDireto;

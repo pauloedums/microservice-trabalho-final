@@ -2,9 +2,6 @@ package br.com.impacta.microservices.ib.model;
 
 import java.math.BigDecimal;
 
-import javax.persistence.Entity;
-
-
 public class Purchase {
     
     public String purchaseName;

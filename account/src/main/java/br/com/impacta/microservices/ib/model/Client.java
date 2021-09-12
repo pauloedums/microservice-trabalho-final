@@ -1,6 +1,5 @@
 package br.com.impacta.microservices.ib.model;
 
-import javax.annotation.security.RolesAllowed;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,8 +11,6 @@ import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonView;
-
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 @Entity

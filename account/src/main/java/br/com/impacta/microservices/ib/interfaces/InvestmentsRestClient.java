@@ -29,7 +29,7 @@ public interface InvestmentsRestClient {
     @GET
     @Path("{code}")
     @Produces(MediaType.APPLICATION_JSON)
-    public void getTesouroDireto(@PathParam("code") int code);
+    public TesouroDireto getTesouroDireto(@PathParam("code") int code);
 
     @GET
     @Path("/list")

@@ -104,13 +104,10 @@ public class InvestmentsResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addInvestment(Investment investment){
-        System.out.println("ADICIONANDO INVESTIMENTO");
         if(balanceRestClient.get().getBalance().signum() <= 0){
-            System.out.println("ENTROU NO IF");
             return Response.ok(FallbackMessages.ADD_INVESTMENT.getDescription()).build();
         }
         else {
-            System.out.println("ENTROU NO ELSE");
             investmentsService.addInvestmentToClient(investment);
             return Response.ok(investment).build();       
         }

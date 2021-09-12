@@ -70,7 +70,6 @@ public class ClientService {
     public List<Investment> getInvestmentByCpf(int cpf){
         InvestimentClient client = getInvestmentClientByCpf(cpf);
         List<Investment> investments = Investment.find("client", client).list();
-        System.out.println(investments.size());
         return investments;
     }
 

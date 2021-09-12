@@ -113,7 +113,6 @@ public class ClientsResource {
                  .getInvestmentValue() + "\n"
             + "------------------------- \n");
         });
-        System.out.println(result);
 
         return result.toString();
 

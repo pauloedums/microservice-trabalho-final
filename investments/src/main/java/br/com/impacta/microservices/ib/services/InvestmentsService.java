@@ -94,9 +94,7 @@ public class InvestmentsService {
             .add(
                 lote(tesouroDireto,investmentValue, qty)
             );
-        System.out.println("COMEÇOU A ADICIONAR OS VALORES");
         if (spendingLimit.subtract(investmentValue).signum() > 0 && spendingLimit.intValue() > lote.intValue()) {         
-            System.out.println("ENTROU NO IF");
             debit.setDebit(lote.negate());
             debit.setClientCpf(investment.getClient().getCpf());
             debitRestClient.addDebit(debit);
@@ -104,12 +102,6 @@ public class InvestmentsService {
             BigDecimal storeOldAmountOfInvestment = investment.getClient().getInvestimentValue();
             
             investment.getClient().setInvestimentValue(storeOldAmountOfInvestment.add(lote));
-
-            System.out.println("ENTROU NO IF");
-
-            System.out.println("PEGA O CLIENTE");
-
-            System.out.println("CPF DO CLIENTE: " + investment.getClient().getCpf());
             Set<InvestimentClient> clients = new HashSet<InvestimentClient>();
             
             clients.add(investment.getClient());
@@ -117,10 +109,6 @@ public class InvestmentsService {
             tesouroDireto.setClients(clients);
 
             InvestimentClient.persist(investment.getClient());  
-            System.out.println("##############################");
-            System.out.println("CPF DO CLIENTE: ");
-            System.out.println(investment.getClient().getCpf());
-            System.out.println("##############################");
             Investment.persist(investment);
             
             TesouroDireto.persist(tesouroDireto);

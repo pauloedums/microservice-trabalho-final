@@ -112,3 +112,49 @@ spec:
         name: ms-impacta-investments-ct
         ports:
         - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ms-impacta-account-dpl
+  name: ms-impacta-account
+  namespace: microservices-impacta
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-impacta-account
+  template:
+    metadata:
+      labels:
+        app: ms-impacta-account
+    spec:
+      containers:
+      - image: pauloedums/microservices-impacta-account:latest
+        name: ms-impacta-account-ct
+        ports:
+        - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ms-impacta-keycloak-dpl
+  name: ms-impacta-keycloak
+  namespace: microservices-impacta
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-impacta-keycloak
+  template:
+    metadata:
+      labels:
+        app: ms-impacta-keycloak
+    spec:
+      containers:
+      - image: viniciusmartinez/quarkus-rhsso:1.0
+        name: ms-impacta-keycloak-ct
+        ports:
+        - containerPort: 8080

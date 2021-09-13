@@ -1,5 +1,7 @@
 package br.com.impacta.microservices.ib.interfaces;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -12,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import br.com.impacta.microservices.ib.model.CreditCard;
+import br.com.impacta.microservices.ib.model.CreditCardClient;
 import br.com.impacta.microservices.ib.model.Purchase;
 
 @Path("/card")
@@ -19,23 +22,19 @@ import br.com.impacta.microservices.ib.model.Purchase;
 public interface CreditCardRestClient {
         
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public void getAll();
+    public List<CreditCard> getAll();
 
     @GET
     @Path("/{cardNumber}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public void getCreditCardByNumber(@PathParam("cardNumber") int cardNumber);
+    public CreditCard getCreditCardByNumber(@PathParam("cardNumber") int cardNumber);
 
     @GET
     @Path("/{cardNumber}/purchases")
-    @Produces(MediaType.APPLICATION_JSON)
-    public void getAllPurchases(@PathParam("cardNumber") int cardNumber);
+    public List<Purchase> getAllPurchases(@PathParam("cardNumber") int cardNumber);
 
     @GET
     @Path("/client/{cpf}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public void getClient(@PathParam("cpf") int cpf);
+    public CreditCardClient getClient(@PathParam("cpf") int cpf);
 
     @POST
     @Path("/create")

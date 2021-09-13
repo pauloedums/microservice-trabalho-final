@@ -54,7 +54,8 @@ Utilizando o ambiente linux atualize o arquivo `sudo vim /etc/hosts` com os ende
 192.168.49.2    microservices-impacta-extract-balance.com
 192.168.49.2    microservices-impacta-investments.com
 192.168.49.2    microservices-impacta-credit-card.com
-192.168.49.2    microservices-impacta-client.com
+192.168.49.2    microservices-impacta-account.com
+192.168.49.2    microservices-impacta-keycloak.com
 ```
 
 
@@ -66,48 +67,7 @@ Utilize o arquivo tesouro-direto.json para adicionar investimentos no endpoint `
 ## Keycloak para autenticação e acesso ao sistema bancário
 
 
-Acessar o [Auth](http://localhost:10520/auth/) clicar em `Administration Console` e utilizar o usuário e senha `admin` e adicionar a configuração disponível no arquivo quarkus-realm.json na aba Quarkus > Add Realm fazendo o upload do arquivo.
-
-Para testar o token adicionando usuário 'user1' com senha 'user1':
-
-Usando usuário cliente comum:
-```
-export access_token=$(\
-  curl -X POST http://localhost:10520/auth/realms/Quarkus/protocol/openid-connect/token \
-  --user customer-app:5ffb3490-4d7b-42ed-8cac-e6774550bc92 \
-  -H 'content-type: application/x-www-form-urlencoded' \
-  -d 'username=user1&password=user1&grant_type=password' | jq --raw-output '.access_token' \
-)
-echo $access_token
-```
-
-Usando usuário admin comum:
-```
-export access_token=$(\
-  curl -X POST http://localhost:10520/auth/realms/Quarkus/protocol/openid-connect/token \
-  --user customer-app:5ffb3490-4d7b-42ed-8cac-e6774550bc92 \
-  -H 'content-type: application/x-www-form-urlencoded' \
-  -d 'username=admin&password=admin&grant_type=password' | jq --raw-output '.access_token' \
-)
-echo $access_token
-```
-
-Checando se o access_token retornou:
-
-```
-curl -X 'GET' \
-  'http://localhost:8080/api/clients/me' \
-  -H 'accept: text/plain' \
-  -H 'Authorization: Bearer '$access_token
-```
-
-Listar todos os clientes:
-```
-curl -X 'GET' \
-  'http://localhost:8080/api/admin/clients' \
-  -H 'accept: text/plain' \
-  -H 'Authorization: Bearer '$access_token
-```
+Acessar o [Auth](http://microservices-impacta-keycloak.com/auth/) clicar em `Administration Console` e utilizar o usuário e senha `admin` e adicionar a configuração disponível no arquivo realm-export.json na aba Quarkus > Add Realm fazendo o upload do arquivo.
 
 
 ## Excluir o namespace e todas as dependências

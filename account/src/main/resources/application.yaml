@@ -7,7 +7,7 @@ quarkus:
     instrumentation: true
 
   oidc:
-    auth-server-url: http://localhost:10520/auth/realms/Quarkus
+    auth-server-url: http://microservices-impacta-keycloak.com/auth/realms/Quarkus
     client-id: customer-app
     credentials:
       secret: 5ffb3490-4d7b-42ed-8cac-e6774550bc92
@@ -16,7 +16,7 @@ quarkus:
     username: postgres
     password: postgres
     jdbc:
-      url: jdbc:postgresql://localhost:5432/bank_accounts
+      url: jdbc:postgresql://postgres-db-lb:5432/bank_accounts
   hibernate-orm:
     database:
       generation: 
@@ -53,4 +53,4 @@ br:
 
 # variables
 app:
-  token-url: http://localhost:10520/auth/realms/quarkus/protocol/openid-connect/token
+  token-url: http://microservices-impacta-keycloak.com/auth/realms/quarkus/protocol/openid-connect/token

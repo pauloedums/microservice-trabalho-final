@@ -1,6 +1,7 @@
 package br.com.impacta.microservices.ib;
 
 import java.math.BigDecimal;
+import java.net.URI;
 import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
@@ -28,17 +29,20 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import br.com.impacta.microservices.ib.enums.FallbackClientMessages;
+import br.com.impacta.microservices.ib.enums.FallbackCreditCard;
 import br.com.impacta.microservices.ib.interfaces.BalanceRestClient;
-import br.com.impacta.microservices.ib.interfaces.InvestmentsRestClient;
 import br.com.impacta.microservices.ib.interfaces.CreditCardRestClient;
 import br.com.impacta.microservices.ib.interfaces.CreditRestClient;
 import br.com.impacta.microservices.ib.interfaces.DebitRestClient;
+import br.com.impacta.microservices.ib.interfaces.InvestmentsRestClient;
+import br.com.impacta.microservices.ib.model.Balance;
 import br.com.impacta.microservices.ib.model.Client;
 import br.com.impacta.microservices.ib.model.Credit;
+import br.com.impacta.microservices.ib.model.CreditCard;
+import br.com.impacta.microservices.ib.model.CreditCardClient;
 import br.com.impacta.microservices.ib.model.Debit;
 import br.com.impacta.microservices.ib.model.Investment;
 import br.com.impacta.microservices.ib.model.TesouroDireto;
-import br.com.impacta.microservices.ib.model.Balance;
 import br.com.impacta.microservices.ib.services.ClientService;
 
 
@@ -49,7 +53,7 @@ import br.com.impacta.microservices.ib.services.ClientService;
     type = SecuritySchemeType.OAUTH2,
     flows = @OAuthFlows(
         password = @OAuthFlow(
-            tokenUrl = "http://localhost:10520/auth/realms/Quarkus/protocol/openid-connect/token"
+            tokenUrl = "http://microservices-impacta-keycloak.com/auth/realms/Quarkus/protocol/openid-connect/token"
         )
     )
 )
@@ -183,10 +187,50 @@ public class BankResource {
         return Response.ok(investments).build();
     }
 
+    @POST
+    @Operation(
+        summary = "Adiciona cartão de crédito na conta do cliente"
+    )
+    @Transactional
+    @Timeout(5000)
+    @Retry(maxRetries = 5)
+    @Path("/{cpf}/add-credit-card")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Fallback(fallbackMethod = "fallbackAddCreditCard")
+    @RolesAllowed("admin")
+    public Response addCreditCard(@PathParam("cpf") int cpf, CreditCard creditCard) {
+        Client client = clientService.getClientByCpf(cpf);
+        CreditCardClient creditCardClient = new CreditCardClient();
+
+        creditCardClient.setCpf(client.getCpf());
+        creditCardClient.setFirstName(client.getFirstName());
+        creditCardClient.setLastName(client.getLastName());
+
+        creditCard.setClient(creditCardClient);
+        creditCard.setClientName(client.getFirstName() + " " + client.getLastName());
+
+        // balanço padrão para criação de cartão de crédito
+        creditCard.setCardBalance(new BigDecimal(0));
+
+        // crédito inicial liberado no cartão de crédito
+        creditCard.setSpendingLimit(new BigDecimal(2500));
+
+        creditCardRestClient.addCreditCard(creditCard);
+        return Response.created(
+            URI.create("credit card created")
+        ).build();
+    }
+
 
     private Response fallbackGetAllInvestments(){
         return Response.serverError()
                 .header("erro", FallbackClientMessages.GET_ALL_INVESTMENTS.getDescription())
+                .build();
+    }
+    private Response fallbackAddCreditCard(@PathParam("cpf") int cpf, CreditCard creditCard){
+        return Response.serverError()
+                .header("erro", FallbackCreditCard.ADD_CREDIT_CARD.getDescription())
                 .build();
     }
 

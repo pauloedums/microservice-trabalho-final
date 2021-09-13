@@ -23,12 +23,10 @@ public interface InvestmentsRestClient {
     
     @GET
     @Path("/tesouro-direto")
-    @Produces(MediaType.APPLICATION_JSON)
     public List<TesouroDireto> getAllTesouroDireto();
 
     @GET
     @Path("{code}")
-    @Produces(MediaType.APPLICATION_JSON)
     public TesouroDireto getTesouroDireto(@PathParam("code") int code);
 
     @GET

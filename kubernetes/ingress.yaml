@@ -57,3 +57,36 @@ spec:
               number: 9020
         pathType: Prefix
         path: "/"
+   
+  - host: microservices-impacta-keycloak.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: ms-impacta-keycloak-svc
+            port: 
+              number: 8080
+        pathType: Prefix
+        path: "/"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ms-impacta-account-ingress
+  namespace: microservices-impacta
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: microservices-impacta-account.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: ms-impacta-account-svc
+            port: 
+              number: 8080
+          
+        pathType: Prefix
+        path: "/"
+  

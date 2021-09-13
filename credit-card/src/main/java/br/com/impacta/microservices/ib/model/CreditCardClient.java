@@ -5,12 +5,11 @@ import javax.persistence.Entity;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 @Entity
-public class Client extends PanacheEntity{
+public class CreditCardClient extends PanacheEntity{
 
     public String firstName;
     public String lastName;
     private int cpf;
-        
     public String getFirstName() {
         return firstName;
     }
@@ -28,6 +27,7 @@ public class Client extends PanacheEntity{
     }
     public void setCpf(int cpf) {
         this.cpf = cpf;
-    }   
+    }
+        
     
 }

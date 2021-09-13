@@ -7,7 +7,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
 
 import br.com.impacta.microservices.ib.model.Balance;
-import br.com.impacta.microservices.ib.model.Client;
+import br.com.impacta.microservices.ib.model.CreditCardClient;
 import br.com.impacta.microservices.ib.model.CreditCard;
 import br.com.impacta.microservices.ib.model.Purchase;
 
@@ -33,8 +33,8 @@ public class CreditCardService {
 
 
     @Transactional
-    public Client findClientByCpf(int cpf){
-        return Client.find("cpf", cpf).firstResult();
+    public CreditCardClient findClientByCpf(int cpf){
+        return CreditCardClient.find("cpf", cpf).firstResult();
     }
 
     @Transactional

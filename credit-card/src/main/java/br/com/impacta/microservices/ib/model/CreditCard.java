@@ -25,13 +25,13 @@ public class CreditCard extends PanacheEntity {
 	@OneToMany(cascade = CascadeType.ALL,targetEntity = Purchase.class,fetch = FetchType.EAGER)
     public List<Purchase> purchases;
 
-    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Client.class, fetch = FetchType.EAGER)
-    public Client client;
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = CreditCardClient.class, fetch = FetchType.EAGER)
+    public CreditCardClient client;
 
-    public Client getClient() {
+    public CreditCardClient getClient() {
         return client;
     }
-    public void setClient(Client client) {
+    public void setClient(CreditCardClient client) {
         this.client = client;
     }
     public String getCardName() {

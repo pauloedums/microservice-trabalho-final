@@ -16,7 +16,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
@@ -24,7 +23,7 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import br.com.impacta.microservices.ib.enums.FallbackCreditCard;
 import br.com.impacta.microservices.ib.interfaces.DebitRestClient;
-import br.com.impacta.microservices.ib.model.Client;
+import br.com.impacta.microservices.ib.model.CreditCardClient;
 import br.com.impacta.microservices.ib.model.CreditCard;
 import br.com.impacta.microservices.ib.model.Debit;
 import br.com.impacta.microservices.ib.model.Purchase;
@@ -91,8 +90,8 @@ public class CreditCardResource {
     @Fallback(fallbackMethod = "fallbackGetAllPurchases")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getClient(@PathParam("cpf") int cpf){
-        Client client = creditCardService.findClientByCpf(cpf);
-        if(client.equals(new Client())){
+        CreditCardClient client = creditCardService.findClientByCpf(cpf);
+        if(client.equals(new CreditCardClient())){
             throw new EmptyStackException();
         }
         return Response.ok(client).build();

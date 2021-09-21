@@ -76,7 +76,7 @@ Utilizando o ambiente linux atualize o arquivo `sudo vim /etc/hosts` com os ende
 
 Acessar o [Auth](http://microservices-impacta-keycloak.com/auth/) clicar em `Administration Console` e utilizar o usuário e senha `admin` e adicionar a configuração adicional no menu `Clients > customer-app`.
 
-Trocar as urls de Root URL, Valid Redirect URIs, Admin URL e Web Origins para o valor `http://microservices-impacta-account.com/`.
+Trocar as urls de **Root URL, Valid Redirect URIs, Admin URL e Web Origins** para o valor `http://microservices-impacta-account.com/`.
 
 
 ## Utilização do Swagger

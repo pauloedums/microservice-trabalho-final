@@ -71,7 +71,7 @@ public class ClientsResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Fallback(fallbackMethod = "fallbackGetCLientInvestments", applyOn = EmptyStackException.class)
     @RolesAllowed({"admin", "user"})
-    public String me(@PathParam("cpf") int cpf) {
+    public Response me(@PathParam("cpf") int cpf) {
         Balance newBalance = balanceRestClient.getBalance();
         Client clientEntity = clientService.getClientByCpf(cpf);
         List<Investment> invst = investmentsRestClient.getInvestments();
@@ -141,7 +141,7 @@ public class ClientsResource {
             });
         }
         
-        return result.toString();
+        return Response.ok(result.toString()).build();
 
     }
     
@@ -152,8 +152,8 @@ public class ClientsResource {
     }
 
 
-    private String fallbackGetCLientInvestments(@PathParam("cpf") int cpf){
-        return FallbackClientMessages.CLIENT_INVESTMENTS.getDescription();
+    private Response fallbackGetCLientInvestments(@PathParam("cpf") int cpf){
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
     }
    
 }

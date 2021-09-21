@@ -192,12 +192,9 @@ public class BankResource {
         summary = "Adiciona cartão de crédito na conta do cliente"
     )
     @Transactional
-    @Timeout(5000)
-    @Retry(maxRetries = 5)
     @Path("/{cpf}/add-credit-card")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Fallback(fallbackMethod = "fallbackAddCreditCard")
     @RolesAllowed("admin")
     public Response addCreditCard(@PathParam("cpf") int cpf, CreditCard creditCard) {
         Client client = clientService.getClientByCpf(cpf);
@@ -217,20 +214,13 @@ public class BankResource {
         creditCard.setSpendingLimit(new BigDecimal(2500));
 
         creditCardRestClient.addCreditCard(creditCard);
-        return Response.created(
-            URI.create("credit card created")
-        ).build();
+        return Response.created(URI.create("cartão de crédito criado")).build();
     }
 
 
     private Response fallbackGetAllInvestments(){
         return Response.serverError()
                 .header("erro", FallbackClientMessages.GET_ALL_INVESTMENTS.getDescription())
-                .build();
-    }
-    private Response fallbackAddCreditCard(@PathParam("cpf") int cpf, CreditCard creditCard){
-        return Response.serverError()
-                .header("erro", FallbackCreditCard.ADD_CREDIT_CARD.getDescription())
                 .build();
     }
 

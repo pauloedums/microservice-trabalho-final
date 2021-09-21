@@ -52,7 +52,7 @@ Por não estarmos utilizando a nuvem pública é necessário adicionar a configu
 
 ### importante!
 
-Copie o seu *IP* utilizado, cheque os ips abaixo rodando o comando `kubectl get ingress -n microservices-impacta`.
+Copie o seu **IP ADDRESS** utilizado, cheque os ips abaixo rodando o comando `kubectl get ingress -n microservices-impacta`.
 
 ```
 NAME                         CLASS    HOSTS                                                                                                                    ADDRESS          PORTS   AGE

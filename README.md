@@ -6,10 +6,8 @@ Trabalho de Disciplina - Microservices &amp; Serveless Architecture
 Microserviço responsável pela orquestração da conta do cliente, com serviço de saldo, cartão de crédito e investimentos.
 
 ## Dependências utilizadas
-[Ubuntu] Linux OS - versão 20.04 
-
+[Ubuntu] Linux OS - versão 20.04
 [minikube](https://minikube.sigs.k8s.io/docs/start/) versão 1.22.0 
-
 [Quarkus](https://code.quarkus.io/) com extensões:
 - YAML Configuration
 - RESTEasy JAX-RS

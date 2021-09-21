@@ -10,7 +10,9 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class CreditCard{
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
+public class CreditCard extends PanacheEntity{
        
     public String cardName;
 	public int cardNumber;

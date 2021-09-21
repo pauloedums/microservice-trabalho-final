@@ -72,33 +72,60 @@ public class ClientsResource {
     @Fallback(fallbackMethod = "fallbackGetCLientInvestments", applyOn = EmptyStackException.class)
     @RolesAllowed({"admin", "user"})
     public Response me(@PathParam("cpf") int cpf) {
-        Balance newBalance = balanceRestClient.getBalance();
-        Client clientEntity = clientService.getClientByCpf(cpf);
-        List<Investment> invst = investmentsRestClient.getInvestments();
-        List<CreditCard> creditCards = creditCardRestClient.getAll();
-        if(newBalance.getBalance().signum() <= 0 || clientEntity == null){
-            throw new EmptyStackException();
-        }
-
+        Balance newBalance = new Balance();
+        Client clientEntity = new Client();
+        List<Investment> invst = new ArrayList<>();
+        List<CreditCard> creditCards = new ArrayList<>();
         List<TesouroDireto> tesouroDireto = new ArrayList<>();
-
+        StringBuilder result  = new StringBuilder() ;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        clientEntity.setBalance(newBalance);
-        String clientBalance = NumberFormat.getCurrencyInstance()
-                                            .format(clientEntity.getBalance()
-                                                            .getBalance()
-                                                            .doubleValue());
-        StringBuilder result  = new StringBuilder() ;
-        result.append(clientEntity.getFirstName().toString() + ", seja bem-vindo ao Banco X. \n"
-                + "Seu saldo atual é de R$ " + clientBalance + "\n\n"                                            
-                + "Investimentos: \n"
-                + "------------------------- \n");
+        if(Client.listAll().size() > 0 ){
+            final Client clientEntityDTO = clientService.getClientByCpf(cpf);
+            clientEntity = clientEntityDTO;
+        }
+        if(Balance.listAll().size() > 0 ){
+            final Balance newBalanceRest = balanceRestClient.getBalance();
+            newBalance.setBalance(newBalanceRest.getBalance());
+            if(newBalance.getBalance().signum() <= 0 || clientEntity == null){
+                throw new EmptyStackException();
+            }
+        }
+
+        if(investmentsRestClient.getInvestments().size() > 0) {
+            final List<Investment> invstmentsRestList = investmentsRestClient.getInvestments();
+            for (Investment investment : invstmentsRestList) {
+                invst.add(investment);
+            }
+        }
+        if(creditCardRestClient.getAll().size() > 0 ) {
+            final List<CreditCard> creditCardsRestList = creditCardRestClient.getAll();
+            creditCards.addAll(creditCardsRestList);
+        }
+
         
+        if(clientEntity.getAccountNumber() <= 0){
+            result.append(
+                "--- Cliente não cadastrado no banco. --- \n"
+                + "------------------------- \n");
+        } else {
+            clientEntity.setBalance(newBalance);
+            String clientBalance = NumberFormat.getCurrencyInstance()
+                                                .format(clientEntity.getBalance()
+                                                                .getBalance()
+                                                                .doubleValue());
+            result.append(clientEntity.getFirstName().toString() + ", seja bem-vindo ao Banco X. \n"
+                    + "Seu saldo atual é de R$ " + clientBalance + "\n"
+                    + "------------------------- \n\n");            
+        }
+
+        result.append("Investimentos: \n"
+        + "------------------------- \n");
+
         if(invst.isEmpty()){
-          result.append(
-              "--- Cliente não possui investimentos --- \n"
-              + "------------------------- \n");
+            result.append(
+                "--- Cliente não possui investimentos --- \n"
+                + "------------------------- \n");
         } else {
             invst.forEach(in -> {
                 tesouroDireto.add(clientService.getTesouroByCode(in.getCodeTesouroDireto()));
@@ -118,14 +145,14 @@ public class ClientsResource {
                 + "------------------------- \n");
                 
             });
- 
+
         } 
 
         result.append("Cartão de Crédito: \n"
         + "------------------------- \n");
 
         if(creditCards.isEmpty()){
-          result.append(
+        result.append(
             "--- Cliente não possui cartão de crédito --- \n"
             + "------------------------- \n");
         } else {
@@ -143,12 +170,6 @@ public class ClientsResource {
         
         return Response.ok(result.toString()).build();
 
-    }
-    
-    private Response fallbackGetAllTesouroDireto(){
-        return Response.serverError()
-                .header("erro", FallbackClientMessages.GET_ALL_TESOURO_DIRETO.getDescription())
-                .build();
     }
 
 

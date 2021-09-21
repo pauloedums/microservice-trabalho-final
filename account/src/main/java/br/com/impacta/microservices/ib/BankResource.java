@@ -2,6 +2,7 @@ package br.com.impacta.microservices.ib;
 
 import java.math.BigDecimal;
 import java.net.URI;
+import java.util.EmptyStackException;
 import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
@@ -29,7 +30,6 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import br.com.impacta.microservices.ib.enums.FallbackClientMessages;
-import br.com.impacta.microservices.ib.enums.FallbackCreditCard;
 import br.com.impacta.microservices.ib.interfaces.BalanceRestClient;
 import br.com.impacta.microservices.ib.interfaces.CreditCardRestClient;
 import br.com.impacta.microservices.ib.interfaces.CreditRestClient;
@@ -161,12 +161,16 @@ public class BankResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/clients/{account}")
+    @Timeout(5000)
+    @Retry(maxRetries = 5)
     @RolesAllowed("admin")
-    public Client getClient(@PathParam("account") int account){
-        Client clientEntity = new Client();
-        clientEntity.setAccountNumber(account);
-        clientEntity = clientService.getClientByAccount(clientEntity);
-        return clientEntity;
+    @Fallback(fallbackMethod = "fallbackGetClient", applyOn = EmptyStackException.class)
+    public Response getClient(@PathParam("account") int account){
+        Client clientEntity = clientService.getClientByAccount(account);
+        if(clientEntity == null){
+            throw new EmptyStackException();
+        }
+        return Response.ok(clientEntity).build();
     }
 
 
@@ -214,13 +218,18 @@ public class BankResource {
         creditCard.setSpendingLimit(new BigDecimal(2500));
 
         creditCardRestClient.addCreditCard(creditCard);
-        return Response.created(URI.create("cartão de crédito criado")).build();
+        return Response.ok(creditCard).build();
     }
 
 
     private Response fallbackGetAllInvestments(){
         return Response.serverError()
                 .header("erro", FallbackClientMessages.GET_ALL_INVESTMENTS.getDescription())
+                .build();
+    }
+
+    private Response fallbackGetClient(@PathParam("account") int account){
+        return Response.serverError()
                 .build();
     }
 

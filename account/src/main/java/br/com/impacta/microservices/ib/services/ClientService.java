@@ -54,8 +54,8 @@ public class ClientService {
     }
 
     @Transactional
-    public Client getClientByAccount(Client client){
-        return Client.find("accountNumber", client.getAccountNumber()).firstResult();
+    public Client getClientByAccount(int account){
+        return Client.find("accountNumber", account).firstResult();
     }
 
     @Transactional

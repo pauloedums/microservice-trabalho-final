@@ -24,8 +24,18 @@ Microserviço responsável pela orquestração da conta do cliente, com serviço
 - OpenID Connect
 - Keycloak Authorization
 
+## Workshop
 
-## Ambientes
+0. [Ambientes](#microservicos-ambientes)
+1. [Recursos Kubernetes](#microservices-kubernetes)
+2. [Adição de hostnames para teste local](#microservices-hostnames)
+3. [Keycloak para autenticação e acesso ao sistema bancário](#microservices-keycloak)
+4. [Utilização de métricas e health check](#microservices-health-check)
+5. [Utilização do Swagger](#microservices-swagger)
+6. [Excluir o namespace e todas as dependências](#microservices-delete-namespace)
+7. [Parar o minikube](#microservices-stop-minikube)
+
+### <a name="microservicos-ambientes>0 - Ambientes</a>
 
 O projeto utiliza o servidor de autenticação local no Kubernetes para utilizar requisições usando JWT como recurso de segurança. Como opção foi selecionado o Banco de Dados PostGresSQL.
 
@@ -39,7 +49,7 @@ Após isto execute o shell script `./minikube.sh`.
 Este comando irá iniciar o minikube e instalar o ingress-controller para ser utilizado dentro do Kubernetes, com o comando `minikube addons enable ingress` e no final irá abrir o dashboard do kubernetes.
 
 
-## Recursos Kubernetes
+### <a name="microservices-kubernetes">1 - Recursos Kubernetes</a>
 
 É necessário liberar acesso no linux para sua execução com o comando `chmod u+x kubectl-microservices.sh`.
 
@@ -48,7 +58,7 @@ Após isto execute o shell script `./kubectl-microservices.sh`.
 Este comando irá criar o namespace `microservicos-impacta` e todas as suas dependências de serviços, deployments, stateful para o BD e recursos ingress.
 
 
-## Adição de hostnames para teste local
+### <a name="microservices-hostnames">2 - Adição de hostnames para teste local</a>
 
 Por não estarmos utilizando a nuvem pública é necessário adicionar a configuração no arquivo hosts da máquina.
 
@@ -74,21 +84,21 @@ Utilizando o ambiente linux atualize o arquivo `sudo vim /etc/hosts` com os ende
 <SEU-IP>    microservices-impacta-keycloak.com
 ```
 
-## Keycloak para autenticação e acesso ao sistema bancário
+### <a name="microservices-keycloak">3 - Keycloak para autenticação e acesso ao sistema bancário</a>
 
 Acessar o [Auth](http://microservices-impacta-keycloak.com/auth/) clicar em `Administration Console` e utilizar o usuário e senha `admin` e adicionar a configuração adicional no menu `Clients > customer-app`.
 
 Trocar as urls de **Root URL, Valid Redirect URIs, Admin URL e Web Origins** para o valor `http://microservices-impacta-account.com/`.
 
 
-## Utilização de métricas e health check
+### <a name="microservices-health-check">4 - Utilização de métricas e health check</a>
 
 Métricas `http://microservices-impacta-account.com/q/app_metrics`.
 
 Health Check  `http://microservices-impacta-account.com/check`.
 
 
-## Utilização do Swagger
+### <a name="microservices-swagger">5 - Utilização do Swagger</a>
 
 Acesse a URL `http://microservices-impacta-account.com/q/swagger-ui/#/`.
 Clique em Authorize, onde tem um ícone de cadeado e adicione os seguintes dados.
@@ -179,12 +189,11 @@ Nome do cliente: Teste João
 
 ```
 
-
-## Excluir o namespace e todas as dependências
+### <a name="microservices-delete-namespace">6 - Excluir o namespace e todas as dependências</a>
 
 Rode o comando `kubectl delete ns microservices-impacta`.
 
 
-## Parar o minikube
+### <a name="microservices-stop-minikube">7 - Parar o minikube</a>
 
 Rode o comando `minikube stop`.

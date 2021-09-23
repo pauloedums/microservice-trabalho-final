@@ -24,7 +24,7 @@ Microserviço responsável pela orquestração da conta do cliente, com serviço
 - OpenID Connect
 - Keycloak Authorization
 
-## Workshop
+## Microserviços
 
 0. [Ambientes](#microservicos-ambientes)
 1. [Recursos Kubernetes](#microservices-kubernetes)
@@ -35,7 +35,7 @@ Microserviço responsável pela orquestração da conta do cliente, com serviço
 6. [Excluir o namespace e todas as dependências](#microservices-delete-namespace)
 7. [Parar o minikube](#microservices-stop-minikube)
 
-### <a name="microservicos-ambientes>0 - Ambientes</a>
+### <a name="microservicos-ambientes">0 - Ambientes</a>
 
 O projeto utiliza o servidor de autenticação local no Kubernetes para utilizar requisições usando JWT como recurso de segurança. Como opção foi selecionado o Banco de Dados PostGresSQL.
 

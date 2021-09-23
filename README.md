@@ -190,6 +190,7 @@ Nome do cliente: Teste João
 ------------------------- 
 
 ```
+## Remoção
 
 ### <a name="microservices-delete-namespace">6 - Excluir o namespace e todas as dependências</a>
 

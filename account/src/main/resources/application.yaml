@@ -22,6 +22,18 @@ quarkus:
       generation: 
         ~: drop-and-create
 
+  smallrye-health:
+    root-path: /check
+    liveness-path: /live
+    readiness-path: /ready
+
+  smallrye-metrics:
+    path: /q/app_metrics
+    jaxrs:
+      enabled: true
+    extensions:
+      enabled: true
+
 # Fault Tolerance Test
   isTestingFault: false
 # Retry

@@ -17,6 +17,10 @@ import javax.ws.rs.core.Response;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
+import org.eclipse.microprofile.metrics.MetricUnits;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Metered;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType;
 import org.eclipse.microprofile.openapi.annotations.security.OAuthFlow;
@@ -65,6 +69,12 @@ public class InvestmentsResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({"admin", "user"})
+    @Counted(name = "countGetTesouroDiretos", description = "Count how many times the GetTesouroDiretos has been invoked")
+    @Timed(
+        name = "timeGetTesouroDiretos",
+        description = "How long it takes to invoke the GetTesouroDiretos",
+        unit = MetricUnits.MILLISECONDS)
+    @Metered(name = "meteredGetTesouroDiretos", description = "Measures throughput of GetTesouroDiretos method")
     public Response getTesouroDiretos() {
         List<TesouroDireto> tesouroDiretos = investmentsRestClient.getAllTesouroDireto();
         return Response.ok(tesouroDiretos).build();
@@ -81,7 +91,13 @@ public class InvestmentsResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed({"admin", "user"})
-    public Response getTesouroDiretos(@PathParam("code") int code) {
+    @Counted(name = "countGetTesouroDiretosByCode", description = "Count how many times the GetTesouroDiretosByCode has been invoked")
+    @Timed(
+        name = "timeGetTesouroDiretosByCode",
+        description = "How long it takes to invoke the GetTesouroDiretosByCode",
+        unit = MetricUnits.MILLISECONDS)
+    @Metered(name = "meteredGetTesouroDiretosByCode", description = "Measures throughput of GetTesouroDiretosByCode method")
+    public Response getTesouroDiretosByCode(@PathParam("code") int code) {
         TesouroDireto tesouroDireto = investmentsRestClient.getTesouroDireto(code);
         return Response.ok(tesouroDireto).build();
     }
@@ -96,6 +112,12 @@ public class InvestmentsResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({"admin", "user"})
+    @Counted(name = "countAddInvestment", description = "Count how many times the AddInvestment has been invoked")
+    @Timed(
+        name = "timeAddInvestment",
+        description = "How long it takes to invoke the AddInvestment",
+        unit = MetricUnits.MILLISECONDS)
+    @Metered(name = "meteredAddInvestment", description = "Measures throughput of AddInvestment method")
     public Investment addInvestment(@PathParam("cpf") int cpf, Investment investment) {
         Client client = clientService.getClientByCpf(cpf);
         InvestimentClient invstClient = new InvestimentClient(

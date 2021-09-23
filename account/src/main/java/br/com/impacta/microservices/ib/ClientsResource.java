@@ -16,6 +16,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.metrics.MetricUnits;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Metered;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType;
 import org.eclipse.microprofile.openapi.annotations.security.OAuthFlow;
@@ -71,6 +75,12 @@ public class ClientsResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Fallback(fallbackMethod = "fallbackGetCLientInvestments", applyOn = EmptyStackException.class)
     @RolesAllowed({"admin", "user"})
+    @Counted(name = "countMe", description = "Count how many times the Me has been invoked")
+    @Timed(
+        name = "timeMe",
+        description = "How long it takes to invoke the Me",
+        unit = MetricUnits.MILLISECONDS)
+    @Metered(name = "meteredMe", description = "Measures throughput of Me method")
     public Response me(@PathParam("cpf") int cpf) {
         Balance newBalance = new Balance();
         Client clientEntity = new Client();

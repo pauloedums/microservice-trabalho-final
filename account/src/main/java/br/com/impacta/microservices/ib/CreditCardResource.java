@@ -16,6 +16,10 @@ import javax.ws.rs.core.Response;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
+import org.eclipse.microprofile.metrics.MetricUnits;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Metered;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType;
 import org.eclipse.microprofile.openapi.annotations.security.OAuthFlow;
@@ -58,6 +62,12 @@ public class CreditCardResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Fallback(fallbackMethod = "fallbackGetAll")
     @RolesAllowed("admin")
+    @Counted(name = "countGetInvestments", description = "Count how many times the GetInvestments has been invoked")
+    @Timed(
+        name = "timeGetInvestments",
+        description = "How long it takes to invoke the GetInvestments",
+        unit = MetricUnits.MILLISECONDS)
+    @Metered(name = "meteredGetInvestments", description = "Measures throughput of GetInvestments method")
     public Response getInvestments() {
         List<CreditCard> creditCards = creditCardRestClient.getAll();
         return Response.ok(creditCards).build();
@@ -71,6 +81,12 @@ public class CreditCardResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({"admin","user"})
     @Fallback(fallbackMethod = "fallbackGetCreditCardByNumber")
+    @Counted(name = "countGetCreditCardByNumber", description = "Count how many times the GetCreditCardByNumber has been invoked")
+    @Timed(
+        name = "timeGetCreditCardByNumber",
+        description = "How long it takes to invoke the GetCreditCardByNumber",
+        unit = MetricUnits.MILLISECONDS)
+    @Metered(name = "meteredGetCreditCardByNumber", description = "Measures throughput of GetCreditCardByNumber method")
     public Response getCreditCardByNumber(@PathParam("cardNumber") int cardNumber){
         CreditCard creditCard = creditCardRestClient.getCreditCardByNumber(cardNumber);
         return Response.ok(creditCard).build();
@@ -84,6 +100,12 @@ public class CreditCardResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({"admin", "user"})
     @Fallback(fallbackMethod = "fallbackGetAllPurchases")
+    @Counted(name = "countGetAllPurchases", description = "Count how many times the GetAllPurchases has been invoked")
+    @Timed(
+        name = "timeGetAllPurchases",
+        description = "How long it takes to invoke the GetAllPurchases",
+        unit = MetricUnits.MILLISECONDS)
+    @Metered(name = "meteredGetAllPurchases", description = "Measures throughput of GetAllPurchases method")
     public Response getAllPurchases(@PathParam("cardNumber") int cardNumber){
         List<Purchase> purchases = creditCardRestClient.getAllPurchases(cardNumber);
         return Response.ok(purchases).build();
@@ -97,6 +119,12 @@ public class CreditCardResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({"admin", "user"})
     @Fallback(fallbackMethod = "fallbackGetAllPurchases")
+    @Counted(name = "countGetClient", description = "Count how many times the GetClient has been invoked")
+    @Timed(
+        name = "timeGetClient",
+        description = "How long it takes to invoke the GetClient",
+        unit = MetricUnits.MILLISECONDS)
+    @Metered(name = "meteredGetClient", description = "Measures throughput of GetClient method")
     public Response getClient(@PathParam("cpf") int cpf){
         CreditCardClient client = creditCardRestClient.getClient(cpf);
         return Response.ok(client).build();
@@ -111,7 +139,13 @@ public class CreditCardResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed({"admin", "user"})
     @Fallback(fallbackMethod = "fallbackAddPurchase")
-    public Response getClient(@PathParam("cardNumber") int cardNumber, Purchase purchase){
+    @Counted(name = "countGetClientByCardNumber", description = "Count how many times the GetClientByCardNumber has been invoked")
+    @Timed(
+        name = "timeGetClientByCardNumber",
+        description = "How long it takes to invoke the GetClientByCardNumber",
+        unit = MetricUnits.MILLISECONDS)
+    @Metered(name = "meteredGetClientByCardNumber", description = "Measures throughput of GetClientByCardNumber method")
+    public Response getClientByCardNumber(@PathParam("cardNumber") int cardNumber, Purchase purchase){
         creditCardRestClient.addPurchase(cardNumber, purchase);
         CreditCard creditCard = creditCardRestClient.getCreditCardByNumber(cardNumber);
         return Response.ok(creditCard).build();

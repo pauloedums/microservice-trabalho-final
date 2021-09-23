@@ -21,6 +21,10 @@ import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.eclipse.microprofile.jwt.JsonWebToken;
+import org.eclipse.microprofile.metrics.MetricUnits;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Metered;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType;
 import org.eclipse.microprofile.openapi.annotations.security.OAuthFlow;
@@ -105,6 +109,12 @@ public class BankResource {
         summary = "Adiciona cliente, com crédito inicial de R$ 5000,00"
     )
     @RolesAllowed("admin")
+    @Counted(name = "countAddClient", description = "Count how many times the AddClient has been invoked")
+    @Timed(
+        name = "timeAddClient",
+        description = "How long it takes to invoke the AddClient",
+        unit = MetricUnits.MILLISECONDS)
+    @Metered(name = "meteredGetAll", description = "Measures throughput of getAll method")
     public Client addClient(Client client){
         
         // crédito inicial do cliente - 5000
@@ -138,6 +148,12 @@ public class BankResource {
     )
     @Path("/tesouro-direto")
     @RolesAllowed("admin")
+    @Counted(name = "countCreateTesouroDireto", description = "Count how many times the CreateTesouroDireto has been invoked")
+    @Timed(
+        name = "timeCreateTesouroDireto",
+        description = "How long it takes to invoke the CreateTesouroDireto",
+        unit = MetricUnits.MILLISECONDS)
+    @Metered(name = "meteredCreateTesouroDireto", description = "Measures throughput of CreateTesouroDireto method")
     public List<TesouroDireto> createTesouroDireto(List<TesouroDireto> tesouroDiretos){
         investmentsRestClient.createTesouroDireto(tesouroDiretos);
         return tesouroDiretos;
@@ -150,6 +166,12 @@ public class BankResource {
     )
     @Path("/clients")
     @RolesAllowed("admin")
+    @Counted(name = "countGetAllClients", description = "Count how many times the GetAllClients has been invoked")
+    @Timed(
+        name = "timeGetAllClients",
+        description = "How long it takes to invoke the GetAllClients",
+        unit = MetricUnits.MILLISECONDS)
+    @Metered(name = "meteredGetAllClients", description = "Measures throughput of GetAllClients method")
     public List<Client> getAllClients(){
         return clientService.listClient();
     }
@@ -165,6 +187,12 @@ public class BankResource {
     @Retry(maxRetries = 5)
     @RolesAllowed("admin")
     @Fallback(fallbackMethod = "fallbackGetClient", applyOn = EmptyStackException.class)
+    @Counted(name = "countGetClient", description = "Count how many times the GetClient has been invoked")
+    @Timed(
+        name = "timeGetClient",
+        description = "How long it takes to invoke the GetClient",
+        unit = MetricUnits.MILLISECONDS)
+    @Metered(name = "meteredGetClient", description = "Measures throughput of GetClient method")
     public Response getClient(@PathParam("account") int account){
         Client clientEntity = clientService.getClientByAccount(account);
         if(clientEntity == null){
@@ -186,6 +214,12 @@ public class BankResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     @RolesAllowed("admin")
+    @Counted(name = "countGetInvestments", description = "Count how many times the GetInvestments has been invoked")
+    @Timed(
+        name = "timeGetInvestments",
+        description = "How long it takes to invoke the GetInvestments",
+        unit = MetricUnits.MILLISECONDS)
+    @Metered(name = "meteredGetInvestments", description = "Measures throughput of GetInvestments method")
     public Response getInvestments() {
         List<Investment> investments = investmentsRestClient.getInvestments();
         return Response.ok(investments).build();
@@ -200,6 +234,12 @@ public class BankResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed("admin")
+    @Counted(name = "countAddCreditCard", description = "Count how many times the AddCreditCard has been invoked")
+    @Timed(
+        name = "timeAddCreditCard",
+        description = "How long it takes to invoke the AddCreditCard",
+        unit = MetricUnits.MILLISECONDS)
+    @Metered(name = "meteredAddCreditCard", description = "Measures throughput of AddCreditCard method")
     public Response addCreditCard(@PathParam("cpf") int cpf, CreditCard creditCard) {
         Client client = clientService.getClientByCpf(cpf);
         CreditCardClient creditCardClient = new CreditCardClient();

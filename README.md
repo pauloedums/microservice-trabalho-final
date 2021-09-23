@@ -19,6 +19,8 @@ Microserviço responsável pela orquestração da conta do cliente, com serviço
 - JDBC Driver - PostgreSQL
 - SmallRye Fault Tolerance
 - SmallRye OpenTracing
+- SmallRye Metrics
+- SmallRye Health
 - OpenID Connect
 - Keycloak Authorization
 

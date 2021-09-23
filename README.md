@@ -34,6 +34,8 @@ Microserviço responsável pela orquestração da conta do cliente, com serviço
 6. [Excluir o namespace e todas as dependências](#microservices-delete-namespace)
 7. [Parar o minikube](#microservices-stop-minikube)
 
+## Implementação
+
 ### <a name="microservicos-ambientes">0 - Ambientes</a>
 
 O projeto utiliza o servidor de autenticação local no Kubernetes para utilizar requisições usando JWT como recurso de segurança. Como opção foi selecionado o Banco de Dados PostGresSQL.
@@ -89,6 +91,7 @@ Acessar o [Auth](http://microservices-impacta-keycloak.com/auth/) clicar em `Adm
 
 Trocar as urls de **Root URL, Valid Redirect URIs, Admin URL e Web Origins** para o valor `http://microservices-impacta-account.com/`.
 
+## Utilização
 
 ### <a name="microservices-health-check">4 - Utilização de métricas e health check</a>
 

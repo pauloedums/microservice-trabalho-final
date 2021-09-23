@@ -79,6 +79,7 @@ Acessar o [Auth](http://microservices-impacta-keycloak.com/auth/) clicar em `Adm
 Trocar as urls de **Root URL, Valid Redirect URIs, Admin URL e Web Origins** para o valor `http://microservices-impacta-account.com/`.
 
 
+
 ## Utilização do Swagger
 
 Acesse a URL `http://microservices-impacta-account.com/q/swagger-ui/#/`.
@@ -90,6 +91,12 @@ password: admin
 client_id: customer-app
 client_secret: 5ffb3490-4d7b-42ed-8cac-e6774550bc92
 ```
+
+## Utilização de métricas e health check
+
+Métricas `http://microservices-impacta-account.com/q/app_metrics`.
+Health Check  `http://microservices-impacta-account.com/check`.
+
 
 ### Adicionando um cliente:
 Recurso POST
